@@ -31,3 +31,7 @@ bool Map::HasWallAt(double x, double y) const {
 
     return map[mapGridIndexY][mapGridIndexX] != 0;
 }
+
+int Map::GetContent(float x, float y) const {
+    return map[static_cast<int>(y)][static_cast<int>(x)];
+}

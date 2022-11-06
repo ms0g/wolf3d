@@ -128,12 +128,44 @@ void Game::RenderRays() {
     }
 }
 
+void Game::Generate3DProjection() {
+    for (int i = 0; i < NUM_RAYS; ++i) {
+        double perpendicularDistance = rays[i].m_distance * cos(rays[i].m_angle - player->rotationAngle);
+        double distanceProjectionPlane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
+        double projectedWallHeight = (TILE_SIZE / perpendicularDistance) * distanceProjectionPlane;
+
+        int wallStripHeight = static_cast<int>(projectedWallHeight);
+
+        int wallTopPixel = (WINDOW_HEIGHT / 2) - (wallStripHeight / 2);
+        wallTopPixel = wallTopPixel < 0 ? 0 : wallTopPixel;
+
+        int wallBottomPixel = (WINDOW_HEIGHT / 2) + (wallStripHeight / 2);
+        wallBottomPixel = wallBottomPixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : wallBottomPixel;
+
+        // color of the ceiling
+        for (int j = 0; j < wallTopPixel; ++j) {
+            colorBuffer->data[(WINDOW_WIDTH * j) + i] = 0xFF333333;
+        }
+
+        // color of the wall
+        for (int j = wallTopPixel; j < wallBottomPixel; ++j) {
+            colorBuffer->data[(WINDOW_WIDTH * j) + i] = rays[i].m_wasHitVertical ? 0xFFFFFFFF : 0xFFCCCCCC;
+        }
+
+        // color of the floor
+        for (int j = wallBottomPixel; j < WINDOW_HEIGHT; ++j) {
+            colorBuffer->data[(WINDOW_WIDTH * j) + i] = 0xFF777777;
+        }
+    }
+}
+
 void Game::Render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
+    Generate3DProjection();
     colorBuffer->Render(renderer);
-    colorBuffer->Clear(0xFF00EE30);
+    colorBuffer->Clear(0xFF000000);
 
     map->Render(renderer);
     RenderRays();
@@ -149,6 +181,7 @@ void Game::Destroy() {
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
 }
+
 
 
 

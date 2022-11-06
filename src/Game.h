@@ -10,6 +10,7 @@
 #include "ColorBuffer.h"
 #include "Constants.hpp"
 
+
 class Game {
 public:
     Game();
@@ -34,6 +35,8 @@ private:
     void CastRays();
 
     void RenderRays();
+
+    void Generate3DProjection();
 
     SDL_Window* window{};
     SDL_Renderer* renderer{};

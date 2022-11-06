@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "Ray.h"
+#include "ColorBuffer.h"
 #include "Constants.hpp"
 
 class Game {
@@ -38,6 +39,9 @@ private:
     SDL_Renderer* renderer{};
     std::unique_ptr<Player> player;
     std::unique_ptr<Map> map;
+
+    std::unique_ptr<ColorBuffer> colorBuffer;
+
     std::array<Ray, NUM_RAYS> rays{};
 
     bool isRunning;

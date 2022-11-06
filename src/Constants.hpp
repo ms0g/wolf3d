@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include <numbers>
 
 constexpr int FPS{30};
@@ -10,7 +11,7 @@ constexpr int TILE_SIZE{64};
 constexpr int MAP_NUM_ROWS{13};
 constexpr int MAP_NUM_COLS{20};
 
-constexpr double MINIMAP_SCALE_FACTOR{1.0};
+constexpr double MINIMAP_SCALE_FACTOR{0.3};
 
 constexpr int WINDOW_WIDTH{MAP_NUM_COLS * TILE_SIZE};
 constexpr int WINDOW_HEIGHT{MAP_NUM_ROWS * TILE_SIZE};

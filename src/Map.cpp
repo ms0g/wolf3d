@@ -21,7 +21,7 @@ void Map::Render(SDL_Renderer* renderer) const {
 
 }
 
-bool Map::HasWallAt(float x, float y) const {
+bool Map::HasWallAt(double x, double y) const {
     if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT) {
         return true;
     }

@@ -9,10 +9,10 @@ class Ray {
 public:
     Ray() = default;
 
-    Ray(float rayAngle,
-        float wallHitX,
-        float wallHitY,
-        float distance,
+    Ray(double rayAngle,
+        double wallHitX,
+        double wallHitY,
+        double distance,
         bool wasHitVertical,
         bool isRayFacingUp,
         bool isRayFacingDown,
@@ -20,14 +20,14 @@ public:
         bool isRayFacingRight,
         int wallHitContent);
 
-    void Cast(float rayAngle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map);
+    void Cast(double rayAngle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map);
 
     void Render(SDL_Renderer* renderer, std::unique_ptr<Player>& player) const;
 
-    float m_rayAngle;
-    float m_wallHitX;
-    float m_wallHitY;
-    float m_distance;
+    double m_rayAngle;
+    double m_wallHitX;
+    double m_wallHitY;
+    double m_distance;
     bool m_wasHitVertical;
     bool m_isRayFacingUp;
     bool m_isRayFacingDown;

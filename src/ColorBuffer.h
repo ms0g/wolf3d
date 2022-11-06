@@ -4,7 +4,6 @@
 #include <SDL2/SDL.h>
 #include "Constants.hpp"
 
-
 class ColorBuffer {
 public:
     ColorBuffer() = default;
@@ -19,9 +18,11 @@ public:
 
     void Render(SDL_Renderer* renderer);
 
-private:
-    std::array<uint32_t, WINDOW_WIDTH * WINDOW_HEIGHT> data{};
-    SDL_Texture* texture{};
+    void SetColor(int x, int y, uint32_t color);
 
+
+private:
+    SDL_Texture* texture{};
+    std::array<uint32_t, WINDOW_WIDTH * WINDOW_HEIGHT> data{};
 };
 

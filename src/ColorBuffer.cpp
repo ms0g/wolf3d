@@ -26,8 +26,14 @@ void ColorBuffer::CreateTexture(SDL_Renderer* renderer) {
                                 WINDOW_HEIGHT);
 }
 
+void ColorBuffer::SetColor(int x, int y, uint32_t color) {
+    data[(WINDOW_WIDTH * y) + x] = color;
+}
+
 void ColorBuffer::Clear(uint32_t color) {
     data.fill(color);
 }
+
+
 
 

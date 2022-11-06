@@ -7,9 +7,9 @@ class Map {
 public:
     Map() = default;
 
-    void Render(SDL_Renderer* renderer);
+    void Render(SDL_Renderer* renderer) const;
 
-    bool HasWallAt(float x, float y);
+    bool HasWallAt(float x, float y) const;
 
     const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},

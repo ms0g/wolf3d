@@ -1,7 +1,7 @@
 #include "Map.h"
 #include "Constants.hpp"
 
-void Map::Render(SDL_Renderer* renderer) {
+void Map::Render(SDL_Renderer* renderer) const {
     for (int i = 0; i < MAP_NUM_ROWS; i++) {
         for (int j = 0; j < MAP_NUM_COLS; j++) {
             int tileX = j * TILE_SIZE;
@@ -21,7 +21,7 @@ void Map::Render(SDL_Renderer* renderer) {
 
 }
 
-bool Map::HasWallAt(float x, float y) {
+bool Map::HasWallAt(float x, float y) const {
     if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT) {
         return true;
     }

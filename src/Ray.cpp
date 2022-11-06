@@ -5,9 +5,9 @@
 #include "Utils.h"
 #include "Constants.hpp"
 
-Ray::Ray(double rayAngle, double wallHitX, double wallHitY, double distance, bool wasHitVertical, bool isRayFacingUp,
+Ray::Ray(double angle, double wallHitX, double wallHitY, double distance, bool wasHitVertical, bool isRayFacingUp,
          bool isRayFacingDown, bool isRayFacingLeft, bool isRayFacingRight, int wallHitContent) :
-        m_rayAngle(rayAngle),
+        m_angle(angle),
         m_wallHitX(wallHitX),
         m_wallHitY(wallHitY),
         m_distance(distance),
@@ -18,13 +18,13 @@ Ray::Ray(double rayAngle, double wallHitX, double wallHitY, double distance, boo
         m_isRayFacingRight(isRayFacingRight),
         m_wallHitContent(wallHitContent) {}
 
-void Ray::Cast(double rayAngle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map) {
-    rayAngle = normalizeAngle(rayAngle);
+void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map) {
+    angle = normalizeAngle(angle);
 
-    auto isRayFacingDown = rayAngle > 0 && rayAngle < std::numbers::pi;
+    auto isRayFacingDown = angle > 0 && angle < std::numbers::pi;
     auto isRayFacingUp = !isRayFacingDown;
 
-    auto isRayFacingRight = rayAngle < 0.5 * std::numbers::pi || rayAngle > 1.5 * std::numbers::pi;
+    auto isRayFacingRight = angle < 0.5 * std::numbers::pi || angle > 1.5 * std::numbers::pi;
     auto isRayFacingLeft = !isRayFacingRight;
 
     double xintercept, yintercept;
@@ -43,13 +43,13 @@ void Ray::Cast(double rayAngle, std::unique_ptr<Player>& player, std::unique_ptr
     yintercept += isRayFacingDown ? TILE_SIZE : 0;
 
     // Find the x-coordinate of the closest horizontal grid intersection
-    xintercept = player->x + (yintercept - player->y) / tan(rayAngle);
+    xintercept = player->x + (yintercept - player->y) / tan(angle);
 
     // Calculate the increment xstep and ystep
     ystep = TILE_SIZE;
     ystep *= isRayFacingUp ? -1 : 1;
 
-    xstep = TILE_SIZE / tan(rayAngle);
+    xstep = TILE_SIZE / tan(angle);
     xstep *= (isRayFacingLeft && xstep > 0) ? -1 : 1;
     xstep *= (isRayFacingRight && xstep < 0) ? -1 : 1;
 
@@ -89,13 +89,13 @@ void Ray::Cast(double rayAngle, std::unique_ptr<Player>& player, std::unique_ptr
     xintercept += isRayFacingRight ? TILE_SIZE : 0;
 
     // Find the y-coordinate of the closest vertical grid intersection
-    yintercept = player->y + (xintercept - player->x) * tan(rayAngle);
+    yintercept = player->y + (xintercept - player->x) * tan(angle);
 
     // Calculate the increment xstep and ystep
     xstep = TILE_SIZE;
     xstep *= isRayFacingLeft ? -1 : 1;
 
-    ystep = TILE_SIZE * tan(rayAngle);
+    ystep = TILE_SIZE * tan(angle);
     ystep *= (isRayFacingUp && ystep > 0) ? -1 : 1;
     ystep *= (isRayFacingDown && ystep < 0) ? -1 : 1;
 
@@ -142,7 +142,7 @@ void Ray::Cast(double rayAngle, std::unique_ptr<Player>& player, std::unique_ptr
         m_wallHitContent = horizontalWallContent;
         m_wasHitVertical = false;
     }
-    m_rayAngle = rayAngle;
+    m_angle = angle;
     m_isRayFacingDown = isRayFacingDown;
     m_isRayFacingUp = isRayFacingUp;
     m_isRayFacingLeft = isRayFacingLeft;

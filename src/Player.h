@@ -11,18 +11,6 @@ public:
     void Render(SDL_Renderer* renderer);
     void Move(float deltaTime, std::unique_ptr<Map>& map);
 
-    Player(float x, float y, float width, float height, int turnDirection, int walkDirection, float rotationAngle,
-           float walkSpeed, float turnSpeed) :
-            x(x),
-            y(y),
-            width(width),
-            height(height),
-            turnDirection(turnDirection),
-            walkDirection(walkDirection),
-            rotationAngle(rotationAngle),
-            walkSpeed(walkSpeed),
-            turnSpeed(turnSpeed) {}
-
     float x;
     float y;
     float width;

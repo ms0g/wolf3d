@@ -10,7 +10,6 @@
 #include "ColorBuffer.h"
 #include "Constants.hpp"
 
-
 class Game {
 public:
     Game();

@@ -130,7 +130,7 @@ void Game::RenderRays() {
 
 void Game::Generate3DProjection() {
     for (int i = 0; i < NUM_RAYS; ++i) {
-        double perpendicularDistance = rays[i].m_distance * cos(rays[i].m_angle - player->rotationAngle);
+        double perpendicularDistance = rays[i].Distance() * cos(rays[i].Angle() - player->rotationAngle);
         double distanceProjectionPlane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
         double projectedWallHeight = (TILE_SIZE / perpendicularDistance) * distanceProjectionPlane;
 
@@ -144,17 +144,18 @@ void Game::Generate3DProjection() {
 
         // color of the ceiling
         for (int j = 0; j < wallTopPixel; ++j) {
-            colorBuffer->data[(WINDOW_WIDTH * j) + i] = 0xFF333333;
+            colorBuffer->SetColor(i, j, 0xFF333333);
         }
 
         // color of the wall
         for (int j = wallTopPixel; j < wallBottomPixel; ++j) {
-            colorBuffer->data[(WINDOW_WIDTH * j) + i] = rays[i].m_wasHitVertical ? 0xFFFFFFFF : 0xFFCCCCCC;
+            rays[i].WasHitVertical() ? colorBuffer->SetColor(i, j, 0xFFFFFFFF) :
+                colorBuffer->SetColor(i, j, 0xFFCCCCCC);
         }
 
         // color of the floor
         for (int j = wallBottomPixel; j < WINDOW_HEIGHT; ++j) {
-            colorBuffer->data[(WINDOW_WIDTH * j) + i] = 0xFF777777;
+            colorBuffer->SetColor(i, j, 0xFF777777);
         }
     }
 }

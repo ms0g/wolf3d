@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <numbers>
 
 constexpr int FPS{30};

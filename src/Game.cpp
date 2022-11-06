@@ -104,8 +104,8 @@ void Game::Setup() {
 
 void Game::CastRays() {
     double rayAngle = player->rotationAngle - (FOV_ANGLE / 2);
-    for (int stripId = 0; stripId < NUM_RAYS; stripId++) {
-        rays[stripId].Cast(rayAngle, player, map);
+    for (int i = 0; i < NUM_RAYS; i++) {
+        rays[i].Cast(rayAngle, player, map);
         rayAngle += FOV_ANGLE / NUM_RAYS;
     }
 }

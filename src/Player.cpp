@@ -3,7 +3,7 @@
 #include "Map.h"
 #include "Constants.hpp"
 
-void Player::Render(SDL_Renderer* renderer) {
+void Player::Render(SDL_Renderer* renderer) const {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_Rect playerRect = {
             static_cast<int>(x * MINIMAP_SCALE_FACTOR),

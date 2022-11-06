@@ -8,7 +8,8 @@ class Player {
 public:
     Player() = default;
 
-    void Render(SDL_Renderer* renderer);
+    void Render(SDL_Renderer* renderer) const;
+
     void Move(float deltaTime, std::unique_ptr<Map>& map);
 
     float x;

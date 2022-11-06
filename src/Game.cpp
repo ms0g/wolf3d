@@ -4,8 +4,9 @@
 Game::Game() :
         isRunning(false),
         player(std::make_unique<Player>()),
-        map(std::make_unique<Map>()){
+        map(std::make_unique<Map>()) {
 
+    rays.fill({0.0, 0.0, 0.0, 0.0, false, false, false, false, false, 0});
     std::cout << "Game ctor called" << std::endl;
 }
 
@@ -96,6 +97,14 @@ void Game::Setup() {
 
 }
 
+void Game::CastRays() {
+    float rayAngle = player->rotationAngle - (FOV_ANGLE / 2);
+    for (int stripId = 0; stripId < NUM_RAYS; stripId++) {
+        rays[stripId].Cast(rayAngle, player, map);
+        rayAngle += FOV_ANGLE / NUM_RAYS;
+    }
+}
+
 void Game::Update() {
     auto timeToWait = FRAME_TIME_LENGTH - (SDL_GetTicks() - ticksLastFrame);
     if (timeToWait > 0 && timeToWait <= FRAME_TIME_LENGTH)
@@ -105,7 +114,13 @@ void Game::Update() {
     ticksLastFrame = SDL_GetTicks();
 
     player->Move(deltaTime, map);
+    CastRays();
+}
 
+void Game::RenderRays() {
+    for (int i = 0; i < NUM_RAYS; i++) {
+        rays[i].Render(renderer, player);
+    }
 }
 
 void Game::Render() {
@@ -113,6 +128,7 @@ void Game::Render() {
     SDL_RenderClear(renderer);
 
     map->Render(renderer);
+    RenderRays();
     player->Render(renderer);
 
     SDL_RenderPresent(renderer);
@@ -125,6 +141,7 @@ void Game::Destroy() {
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
 }
+
 
 
 

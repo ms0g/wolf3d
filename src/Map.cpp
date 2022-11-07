@@ -18,7 +18,6 @@ void Map::Render(SDL_Renderer* renderer) const {
             SDL_RenderFillRect(renderer, &mapTileRect);
         }
     }
-
 }
 
 bool Map::HasWallAt(double x, double y) const {

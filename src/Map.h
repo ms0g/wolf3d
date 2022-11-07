@@ -12,6 +12,7 @@ public:
     [[nodiscard]] bool HasWallAt(double x, double y) const;
 
     [[nodiscard]] int GetContent(float x, float y) const;
+
 private:
     const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},

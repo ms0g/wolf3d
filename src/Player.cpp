@@ -1,5 +1,5 @@
 #include "Player.h"
-#include <math.h>
+#include <cmath>
 #include "Map.h"
 #include "Constants.hpp"
 

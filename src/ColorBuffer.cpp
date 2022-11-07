@@ -1,14 +1,5 @@
 #include "ColorBuffer.h"
 
-ColorBuffer::ColorBuffer(uint32_t color) {
-    // Fill the buffer
-    data.fill(color);
-}
-
-ColorBuffer::~ColorBuffer() {
-    SDL_DestroyTexture(texture);
-}
-
 void ColorBuffer::Render(SDL_Renderer* renderer) {
     SDL_UpdateTexture(texture,
                       nullptr,

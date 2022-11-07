@@ -8,9 +8,9 @@ class ColorBuffer {
 public:
     ColorBuffer() = default;
 
-    explicit ColorBuffer(uint32_t color);
-
-    ~ColorBuffer();
+    ~ColorBuffer() {
+        SDL_DestroyTexture(texture);
+    }
 
     void Clear(uint32_t color);
 
@@ -19,7 +19,6 @@ public:
     void Render(SDL_Renderer* renderer);
 
     void SetColor(int x, int y, uint32_t color);
-
 
 private:
     SDL_Texture* texture{};

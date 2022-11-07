@@ -5,19 +5,6 @@
 #include "Utils.h"
 #include "Constants.hpp"
 
-Ray::Ray(double angle, double wallHitX, double wallHitY, double distance, bool wasHitVertical, bool isRayFacingUp,
-         bool isRayFacingDown, bool isRayFacingLeft, bool isRayFacingRight, int wallHitContent) :
-        m_angle(angle),
-        m_wallHitX(wallHitX),
-        m_wallHitY(wallHitY),
-        m_distance(distance),
-        m_wasHitVertical(wasHitVertical),
-        m_isRayFacingUp(isRayFacingUp),
-        m_isRayFacingDown(isRayFacingDown),
-        m_isRayFacingLeft(isRayFacingLeft),
-        m_isRayFacingRight(isRayFacingRight),
-        m_wallHitContent(wallHitContent) {}
-
 void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map) {
     angle = normalizeAngle(angle);
 
@@ -123,11 +110,11 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
 
     // Calculate both horizontal and vertical hit distances and choose the smallest one
     double horizontalHitDistance = foundHorizontalWallHit
-                            ? distanceBetweenPoints(player->x, player->y, horizontalWallHitX, horizontalWallHitY)
-                            : FLT_MAX;
+                                   ? distanceBetweenPoints(player->x, player->y, horizontalWallHitX, horizontalWallHitY)
+                                   : FLT_MAX;
     double verticalHitDistance = foundVerticalWallHit
-                            ? distanceBetweenPoints(player->x, player->y, verticalWallHitX, verticalWallHitY)
-                            : FLT_MAX;
+                                 ? distanceBetweenPoints(player->x, player->y, verticalWallHitX, verticalWallHitY)
+                                 : FLT_MAX;
 
     if (verticalHitDistance < horizontalHitDistance) {
         m_distance = verticalHitDistance;

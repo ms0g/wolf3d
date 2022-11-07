@@ -9,17 +9,6 @@ class Ray {
 public:
     Ray() = default;
 
-    Ray(double rayAngle,
-        double wallHitX,
-        double wallHitY,
-        double distance,
-        bool wasHitVertical,
-        bool isRayFacingUp,
-        bool isRayFacingDown,
-        bool isRayFacingLeft,
-        bool isRayFacingRight,
-        int wallHitContent);
-
     [[nodiscard]] double Angle() const {
         return m_angle;
     }
@@ -40,10 +29,10 @@ public:
         return m_wasHitVertical;
     }
 
-
     void Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map);
 
     void Render(SDL_Renderer* renderer, std::unique_ptr<Player>& player) const;
+
 private:
     double m_angle;
     double m_wallHitX;

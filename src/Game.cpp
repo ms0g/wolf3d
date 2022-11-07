@@ -90,15 +90,12 @@ void Game::Setup() {
     player->height = 5;
     player->turnDirection = 0;
     player->walkDirection = 0;
-    player->rotationAngle = std::numbers::pi / 2;
     player->walkSpeed = 200;
-    player->turnSpeed = 60 * (std::numbers::pi / 180);
-
-    // Fill rays
-    rays.fill({0.0, 0.0, 0.0, 0.0, false, false, false, false, false, 0});
+    player->rotationAngle = std::numbers::pi / 2;
+    player->turnSpeed = 45 * (std::numbers::pi / 180);
 
     // Create the color buffer
-    colorBuffer = std::make_unique<ColorBuffer>(0xFF000000);
+    colorBuffer = std::make_unique<ColorBuffer>();
     colorBuffer->CreateTexture(renderer);
 }
 

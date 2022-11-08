@@ -97,6 +97,9 @@ void Game::Setup() {
     // Create the color buffer
     colorBuffer = std::make_unique<ColorBuffer>();
     colorBuffer->CreateTexture(renderer);
+
+    // Create texture
+    texture = std::make_unique<Texture>();
 }
 
 void Game::CastRays() {
@@ -144,10 +147,19 @@ void Game::Generate3DProjection() {
             colorBuffer->SetColor(i, j, 0xFF333333);
         }
 
+        // calculate texture offset X
+        int textureOffsetX = rays[i].WasHitVertical() ? static_cast<int>(rays[i].WallHitY()) % TEXTURE_HEIGHT :
+                             static_cast<int>(rays[i].WallHitX()) % TEXTURE_WIDTH;
+
         // color of the wall
         for (int j = wallTopPixel; j < wallBottomPixel; ++j) {
-            rays[i].WasHitVertical() ? colorBuffer->SetColor(i, j, 0xFFFFFFFF) :
-                colorBuffer->SetColor(i, j, 0xFFCCCCCC);
+            // calculate texture offset Y
+            int distanceFromTop = j + (wallStripHeight / 2) - (WINDOW_HEIGHT / 2);
+            int textureOffsetY = distanceFromTop * (static_cast<float>(TEXTURE_HEIGHT) / wallStripHeight);
+
+            // set the color of the wall based on the color from the texture
+            uint32_t texelColor = texture->GetColor(textureOffsetX, textureOffsetY);
+            colorBuffer->SetColor(i, j, texelColor);
         }
 
         // color of the floor

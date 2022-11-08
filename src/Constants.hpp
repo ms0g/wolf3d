@@ -15,6 +15,9 @@ constexpr double MINIMAP_SCALE_FACTOR{0.3};
 constexpr int WINDOW_WIDTH{MAP_NUM_COLS * TILE_SIZE};
 constexpr int WINDOW_HEIGHT{MAP_NUM_ROWS * TILE_SIZE};
 
+constexpr int TEXTURE_WIDTH{64};
+constexpr int TEXTURE_HEIGHT{64};
+
 constexpr int NUM_RAYS{WINDOW_WIDTH};
 constexpr double FOV_ANGLE{(60 * (std::numbers::pi / 180))};
 

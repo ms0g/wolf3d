@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "Ray.h"
 #include "ColorBuffer.h"
+#include "Texture.h"
 #include "Constants.hpp"
 
 class Game {
@@ -44,6 +45,7 @@ private:
     std::unique_ptr<Map> map;
 
     std::unique_ptr<ColorBuffer> colorBuffer;
+    std::unique_ptr<Texture> texture;
 
     std::array<Ray, NUM_RAYS> rays{};
 

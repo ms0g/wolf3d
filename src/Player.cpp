@@ -16,10 +16,10 @@ void Player::Render(SDL_Renderer* renderer) const {
 
     SDL_RenderDrawLine(
             renderer,
-            MINIMAP_SCALE_FACTOR * x,
-            MINIMAP_SCALE_FACTOR * y,
-            MINIMAP_SCALE_FACTOR * x + cos(rotationAngle) * 40,
-            MINIMAP_SCALE_FACTOR * y + sin(rotationAngle) * 40
+            static_cast<int>(x * MINIMAP_SCALE_FACTOR),
+            static_cast<int>(y * MINIMAP_SCALE_FACTOR),
+            static_cast<int>(x * MINIMAP_SCALE_FACTOR + cos(rotationAngle) * 40),
+            static_cast<int>(y * MINIMAP_SCALE_FACTOR + sin(rotationAngle) * 40)
     );
 
 }

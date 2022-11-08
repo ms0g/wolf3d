@@ -166,8 +166,8 @@ void Game::Render() {
     colorBuffer->Clear(0xFF000000);
 
     map->Render(renderer);
-    RenderRays();
     player->Render(renderer);
+    RenderRays();
 
     SDL_RenderPresent(renderer);
 

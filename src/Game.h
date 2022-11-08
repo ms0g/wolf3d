@@ -39,6 +39,7 @@ private:
 
     SDL_Window* window{};
     SDL_Renderer* renderer{};
+
     std::unique_ptr<Player> player;
     std::unique_ptr<Map> map;
 

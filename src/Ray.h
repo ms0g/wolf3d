@@ -21,6 +21,10 @@ public:
         return m_wallHitY;
     }
 
+    [[nodiscard]] int WallHitContent() const {
+        return m_wallHitContent;
+    }
+
     [[nodiscard]] double Distance() const {
         return m_distance;
     }

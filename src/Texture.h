@@ -1,8 +1,8 @@
 #pragma once
 
 #include <array>
-#include "../lib/upng.h"
 #include "Constants.hpp"
+#include "../upng/upng.h"
 
 class Texture {
 public:

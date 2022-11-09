@@ -7,7 +7,8 @@ find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
 file(GLOB_RECURSE SRC "src/*")
-file(GLOB_RECURSE LIB "lib/*")
+file(GLOB_RECURSE LIB "upng/*")
+
 
 add_executable(${PROJECT_NAME} ${SRC} ${LIB})
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})

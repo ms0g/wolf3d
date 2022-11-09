@@ -1,15 +1,17 @@
 #pragma once
 
 #include <array>
-#include "Constants.hpp"
 #include "../lib/upng.h"
+#include "Constants.hpp"
 
 class Texture {
 public:
     Texture();
+
     ~Texture();
 
     uint32_t GetColor(int x, int y, int texNum);
+
 private:
     typedef struct {
         upng_t* upngTexture;
@@ -30,6 +32,5 @@ private:
             "../images/wood.png",
             "../images/eagle.png",
     };
-
 };
 

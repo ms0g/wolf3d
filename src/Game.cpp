@@ -103,10 +103,9 @@ void Game::Setup() {
 }
 
 void Game::CastRays() {
-    double rayAngle = player->rotationAngle - (FOV_ANGLE / 2);
     for (int i = 0; i < NUM_RAYS; i++) {
+        double rayAngle = player->rotationAngle + atan((i - NUM_RAYS/2) / DIST_PROJ_PLANE);
         rays[i].Cast(rayAngle, player, map);
-        rayAngle += FOV_ANGLE / NUM_RAYS;
     }
 }
 
@@ -131,8 +130,7 @@ void Game::RenderRays() {
 void Game::Generate3DProjection() {
     for (int i = 0; i < NUM_RAYS; ++i) {
         double perpendicularDistance = rays[i].Distance() * cos(rays[i].Angle() - player->rotationAngle);
-        double distanceProjectionPlane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
-        double projectedWallHeight = (TILE_SIZE / perpendicularDistance) * distanceProjectionPlane;
+        double projectedWallHeight = (TILE_SIZE / perpendicularDistance) * DIST_PROJ_PLANE;
 
         int wallStripHeight = static_cast<int>(projectedWallHeight);
 
@@ -147,18 +145,21 @@ void Game::Generate3DProjection() {
             colorBuffer->SetColor(i, j, 0xFF333333);
         }
 
-        // calculate texture offset X
-        int textureOffsetX = rays[i].WasHitVertical() ? static_cast<int>(rays[i].WallHitY()) % TEXTURE_HEIGHT :
-                             static_cast<int>(rays[i].WallHitX()) % TEXTURE_WIDTH;
-
         // get the texture id from map content
         int texNum = rays[i].WallHitContent() - 1;
+
+        int textureWidht = texture->GetTexture(texNum).width;
+        int textureHeight = texture->GetTexture(texNum).height;
+
+        // calculate texture offset X
+        int textureOffsetX = rays[i].WasHitVertical() ? static_cast<int>(rays[i].WallHitY()) % textureHeight :
+                             static_cast<int>(rays[i].WallHitX()) % textureWidht;
 
         // color of the wall
         for (int j = wallTopPixel; j < wallBottomPixel; ++j) {
             // calculate texture offset Y
             int distanceFromTop = j + (wallStripHeight / 2) - (WINDOW_HEIGHT / 2);
-            int textureOffsetY = distanceFromTop * (static_cast<float>(TEXTURE_HEIGHT) / wallStripHeight);
+            int textureOffsetY = distanceFromTop * (static_cast<float>(textureHeight) / wallStripHeight);
 
             // set the color of the wall based on the color from the texture
             uint32_t texelColor = texture->GetColor(textureOffsetX, textureOffsetY, texNum);

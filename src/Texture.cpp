@@ -1,13 +1,28 @@
 #include "Texture.h"
 
 Texture::Texture() {
-    for (int x = 0; x < TEXTURE_WIDTH; x++) {
-        for (int y = 0; y < TEXTURE_HEIGHT; y++) {
-            data[TEXTURE_WIDTH * y + x] = (x % 8 && y % 8) ? 0xFFFF0000 : 0xFF000000;
+    for (int i = 0; i < NUM_TEXTURES; i++) {
+        upng_t* upng;
+
+        upng = upng_new_from_file(textureFileNames[i]);
+        if (upng != nullptr) {
+            upng_decode(upng);
+            if (upng_get_error(upng) == UPNG_EOK) {
+                wallTextures[i].upngTexture = upng;
+                wallTextures[i].width = upng_get_width(upng);
+                wallTextures[i].height = upng_get_height(upng);
+                wallTextures[i].texture_buffer = (uint32_t*) upng_get_buffer(upng);
+            }
         }
     }
 }
 
-uint32_t Texture::GetColor(int x, int y) {
-    return data[(TEXTURE_WIDTH * y) + x];
+uint32_t Texture::GetColor(int x, int y, int texNum) {
+    return wallTextures[texNum].texture_buffer[(TEXTURE_WIDTH * y) + x];
+}
+
+Texture::~Texture() {
+    for (auto& wallTexture: wallTextures) {
+        upng_free(wallTexture.upngTexture);
+    }
 }

@@ -151,6 +151,9 @@ void Game::Generate3DProjection() {
         int textureOffsetX = rays[i].WasHitVertical() ? static_cast<int>(rays[i].WallHitY()) % TEXTURE_HEIGHT :
                              static_cast<int>(rays[i].WallHitX()) % TEXTURE_WIDTH;
 
+        // get the texture id from map content
+        int texNum = rays[i].WallHitContent() - 1;
+
         // color of the wall
         for (int j = wallTopPixel; j < wallBottomPixel; ++j) {
             // calculate texture offset Y
@@ -158,7 +161,7 @@ void Game::Generate3DProjection() {
             int textureOffsetY = distanceFromTop * (static_cast<float>(TEXTURE_HEIGHT) / wallStripHeight);
 
             // set the color of the wall based on the color from the texture
-            uint32_t texelColor = texture->GetColor(textureOffsetX, textureOffsetY);
+            uint32_t texelColor = texture->GetColor(textureOffsetX, textureOffsetY, texNum);
             colorBuffer->SetColor(i, j, texelColor);
         }
 

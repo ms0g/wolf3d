@@ -44,8 +44,8 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
     double nextHorizontalTouchY = yintercept;
 
     // Increment xstep and ystep until we find a wall
-    while (nextHorizontalTouchX >= 0 && nextHorizontalTouchX <= WINDOW_WIDTH && nextHorizontalTouchY >= 0 &&
-           nextHorizontalTouchY <= WINDOW_HEIGHT) {
+    while (nextHorizontalTouchX >= 0 && nextHorizontalTouchX <= MAP_NUM_COLS * TILE_SIZE && nextHorizontalTouchY >= 0 &&
+           nextHorizontalTouchY <= MAP_NUM_ROWS * TILE_SIZE) {
         double xToCheck = nextHorizontalTouchX;
         double yToCheck = nextHorizontalTouchY + (isRayFacingUp ? -1 : 0);
 
@@ -90,8 +90,8 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
     double nextVerticalTouchY = yintercept;
 
     // Increment xstep and ystep until we find a wall
-    while (nextVerticalTouchX >= 0 && nextVerticalTouchX <= WINDOW_WIDTH && nextVerticalTouchY >= 0 &&
-           nextVerticalTouchY <= WINDOW_HEIGHT) {
+    while (nextVerticalTouchX >= 0 && nextVerticalTouchX <= MAP_NUM_COLS * TILE_SIZE && nextVerticalTouchY >= 0 &&
+           nextVerticalTouchY <= MAP_NUM_ROWS * TILE_SIZE) {
         double xToCheck = nextVerticalTouchX + (isRayFacingLeft ? -1 : 0);
         double yToCheck = nextVerticalTouchY;
 

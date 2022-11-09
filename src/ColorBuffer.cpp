@@ -11,7 +11,7 @@ void ColorBuffer::Render(SDL_Renderer* renderer) {
 
 void ColorBuffer::CreateTexture(SDL_Renderer* renderer) {
     texture = SDL_CreateTexture(renderer,
-                                SDL_PIXELFORMAT_ABGR8888,
+                                SDL_PIXELFORMAT_RGBA32,
                                 SDL_TEXTUREACCESS_STREAMING,
                                 WINDOW_WIDTH,
                                 WINDOW_HEIGHT);

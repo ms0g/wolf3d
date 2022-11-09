@@ -12,7 +12,7 @@ public:
 
     uint32_t GetColor(int x, int y, int texNum);
 
-    typedef struct {
+    typedef struct texture_t {
         upng_t* upngTexture;
         int width;
         int height;
@@ -25,14 +25,14 @@ private:
     texture_t wallTextures[NUM_TEXTURES]{};
 
     const char* textureFileNames[NUM_TEXTURES] = {
-            "../images/redbrick.png",
-            "../images/purplestone.png",
-            "../images/mossystone.png",
-            "../images/graystone.png",
-            "../images/colorstone.png",
-            "../images/bluestone.png",
-            "../images/wood.png",
-            "../images/eagle.png",
+            "../assets/redbrick.png",
+            "../assets/purplestone.png",
+            "../assets/mossystone.png",
+            "../assets/graystone.png",
+            "../assets/colorstone.png",
+            "../assets/bluestone.png",
+            "../assets/wood.png",
+            "../assets/eagle.png",
     };
 };
 

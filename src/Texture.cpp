@@ -11,14 +11,20 @@ Texture::Texture() {
                 wallTextures[i].upngTexture = upng;
                 wallTextures[i].width = upng_get_width(upng);
                 wallTextures[i].height = upng_get_height(upng);
-                wallTextures[i].texture_buffer = (uint32_t*) upng_get_buffer(upng);
+                wallTextures[i].texture_buffer = reinterpret_cast<uint32_t*>(
+                        const_cast<unsigned char*>(upng_get_buffer(upng)));
             }
         }
     }
 }
 
 uint32_t Texture::GetColor(int x, int y, int texNum) {
-    return wallTextures[texNum].texture_buffer[(TEXTURE_WIDTH * y) + x];
+    auto& tex = wallTextures[texNum];
+    return tex.texture_buffer[(tex.width * y) + x];
+}
+
+Texture::texture_t& Texture::GetTexture(int texNum) {
+    return wallTextures[texNum];
 }
 
 Texture::~Texture() {
@@ -26,3 +32,5 @@ Texture::~Texture() {
         upng_free(wallTexture.upngTexture);
     }
 }
+
+

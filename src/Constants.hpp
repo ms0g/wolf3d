@@ -13,8 +13,8 @@ constexpr int MAP_NUM_COLS{20};
 
 constexpr double MINIMAP_SCALE_FACTOR{0.2};
 
-constexpr int WINDOW_WIDTH{MAP_NUM_COLS * TILE_SIZE};
-constexpr int WINDOW_HEIGHT{MAP_NUM_ROWS * TILE_SIZE};
+constexpr int WINDOW_WIDTH{1280};
+constexpr int WINDOW_HEIGHT{800};
 
 constexpr int NUM_TEXTURES{8};
 

@@ -43,10 +43,6 @@ private:
     double m_wallHitY;
     double m_distance;
     bool m_wasHitVertical;
-    bool m_isRayFacingUp;
-    bool m_isRayFacingDown;
-    bool m_isRayFacingLeft;
-    bool m_isRayFacingRight;
     int m_wallHitContent;
 
 };

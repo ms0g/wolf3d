@@ -66,7 +66,7 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
     /** 
      * VERTICAL RAY-GRID INTERSECTION CODE
      */
-    int foundVerticalWallHit = false;
+    bool foundVerticalWallHit = false;
     double verticalWallHitX = 0;
     double verticalWallHitY = 0;
     int verticalWallContent = 0;
@@ -122,28 +122,25 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
         m_wallHitY = verticalWallHitY;
         m_wallHitContent = verticalWallContent;
         m_wasHitVertical = true;
+        m_angle = angle;
     } else {
         m_distance = horizontalHitDistance;
         m_wallHitX = horizontalWallHitX;
         m_wallHitY = horizontalWallHitY;
         m_wallHitContent = horizontalWallContent;
         m_wasHitVertical = false;
+        m_angle = angle;
     }
-    m_angle = angle;
-    m_isRayFacingDown = isRayFacingDown;
-    m_isRayFacingUp = isRayFacingUp;
-    m_isRayFacingLeft = isRayFacingLeft;
-    m_isRayFacingRight = isRayFacingRight;
 }
 
 void Ray::Render(SDL_Renderer* renderer, std::unique_ptr<Player>& player) const {
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_RenderDrawLine(
             renderer,
-            MINIMAP_SCALE_FACTOR * player->x,
-            MINIMAP_SCALE_FACTOR * player->y,
-            MINIMAP_SCALE_FACTOR * m_wallHitX,
-            MINIMAP_SCALE_FACTOR * m_wallHitY
+            player->x * MINIMAP_SCALE_FACTOR,
+            player->y * MINIMAP_SCALE_FACTOR,
+            m_wallHitX * MINIMAP_SCALE_FACTOR,
+            m_wallHitY * MINIMAP_SCALE_FACTOR
     );
 }
 

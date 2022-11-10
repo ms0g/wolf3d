@@ -126,7 +126,7 @@ void Game::Update() {
 
 void Game::RenderRays() {
     for (int i = 0; i < NUM_RAYS; i++) {
-        rays[i].Render(renderer, player);
+        rays[i].Render(colorBuffer, player);
     }
 }
 
@@ -184,7 +184,7 @@ void Game::Render() {
 
     map->Render(colorBuffer);
 
-    player->Render(renderer);
+    player->Render(colorBuffer);
     RenderRays();
 
     colorBuffer->Render(renderer);

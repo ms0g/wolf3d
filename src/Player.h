@@ -1,14 +1,14 @@
 #pragma once
 
 #include <memory>
-#include <SDL2/SDL.h>
+#include "ColorBuffer.h"
 
 class Map;
 class Player {
 public:
     Player() = default;
 
-    void Render(SDL_Renderer* renderer) const;
+    void Render(std::unique_ptr<ColorBuffer>& colorBuffer) const;
 
     void Move(float deltaTime, std::unique_ptr<Map>& map);
 

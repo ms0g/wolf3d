@@ -181,12 +181,14 @@ void Game::Render() {
     SDL_RenderClear(renderer);
 
     Generate3DProjection();
-    colorBuffer->Render(renderer);
-    colorBuffer->Clear(0xFF000000);
 
-    map->Render(renderer);
+    map->Render(colorBuffer);
+
     player->Render(renderer);
     RenderRays();
+
+    colorBuffer->Render(renderer);
+    colorBuffer->Clear(0xFF000000);
 
     SDL_RenderPresent(renderer);
 

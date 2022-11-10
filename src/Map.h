@@ -2,12 +2,13 @@
 
 #include <SDL2/SDL.h>
 #include "Constants.hpp"
+#include "ColorBuffer.h"
 
 class Map {
 public:
     Map() = default;
 
-    void Render(SDL_Renderer* renderer) const;
+    void Render(std::unique_ptr<ColorBuffer>& colorBuffer) const;
 
     [[nodiscard]] bool HasWallAt(double x, double y) const;
 

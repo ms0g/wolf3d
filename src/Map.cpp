@@ -1,21 +1,21 @@
 #include "Map.h"
 #include "Constants.hpp"
 
-void Map::Render(SDL_Renderer* renderer) const {
+void Map::Render(std::unique_ptr<ColorBuffer>& colorBuffer) const {
     for (int i = 0; i < MAP_NUM_ROWS; i++) {
         for (int j = 0; j < MAP_NUM_COLS; j++) {
-            int tileX = j * TILE_SIZE;
-            int tileY = i * TILE_SIZE;
-            int tileColor = map[i][j] != 0 ? 255 : 0;
+            int x = j * TILE_SIZE * MINIMAP_SCALE_FACTOR;
+            int y = i * TILE_SIZE * MINIMAP_SCALE_FACTOR;
+            int width = TILE_SIZE * MINIMAP_SCALE_FACTOR;
+            int height = TILE_SIZE * MINIMAP_SCALE_FACTOR;
 
-            SDL_SetRenderDrawColor(renderer, tileColor, tileColor, tileColor, 255);
-            SDL_Rect mapTileRect = {
-                    static_cast<int>(tileX * MINIMAP_SCALE_FACTOR),
-                    static_cast<int>(tileY * MINIMAP_SCALE_FACTOR),
-                    static_cast<int>(TILE_SIZE * MINIMAP_SCALE_FACTOR),
-                    static_cast<int>(TILE_SIZE * MINIMAP_SCALE_FACTOR)
-            };
-            SDL_RenderFillRect(renderer, &mapTileRect);
+            uint32_t tileColor = map[i][j] != 0 ? 0xFFFFFFFF : 0x00000000;
+            // Draw the rectangles
+            for (int xCoord = x; xCoord <= (x + width); xCoord++) {
+                for (int yCoord = y; yCoord <= (y + height); yCoord++) {
+                    colorBuffer->SetColor(xCoord, yCoord, tileColor);
+                }
+            }
         }
     }
 }

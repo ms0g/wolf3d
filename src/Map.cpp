@@ -1,5 +1,4 @@
 #include "Map.h"
-#include "Constants.hpp"
 
 void Map::Render(std::unique_ptr<ColorBuffer>& colorBuffer) const {
     for (int i = 0; i < MAP_NUM_ROWS; i++) {
@@ -10,6 +9,7 @@ void Map::Render(std::unique_ptr<ColorBuffer>& colorBuffer) const {
             int height = TILE_SIZE * MINIMAP_SCALE_FACTOR;
 
             uint32_t tileColor = map[i][j] != 0 ? 0xFFFFFFFF : 0x00000000;
+
             // Draw the rectangles
             for (int xCoord = x; xCoord <= (x + width); xCoord++) {
                 for (int yCoord = y; yCoord <= (y + height); yCoord++) {
@@ -31,6 +31,6 @@ bool Map::HasWallAt(double x, double y) const {
     return map[mapGridIndexY][mapGridIndexX] != 0;
 }
 
-int Map::GetContent(float x, float y) const {
+int Map::GetMapAt(float x, float y) const {
     return map[static_cast<int>(y)][static_cast<int>(x)];
 }

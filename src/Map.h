@@ -1,6 +1,5 @@
 #pragma once
 
-#include <SDL2/SDL.h>
 #include "Constants.hpp"
 #include "ColorBuffer.h"
 
@@ -12,7 +11,7 @@ public:
 
     [[nodiscard]] bool HasWallAt(double x, double y) const;
 
-    [[nodiscard]] int GetContent(float x, float y) const;
+    [[nodiscard]] int GetMapAt(float x, float y) const;
 
 private:
     const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {

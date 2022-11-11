@@ -2,12 +2,11 @@
 #include <numbers>
 #include <cmath>
 
-double normalizeAngle(double angle) {
+void normalizeAngle(double& angle) {
     angle = remainder(angle, 2 * std::numbers::pi);
     if (angle < 0) {
         angle = 2 * std::numbers::pi + angle;
     }
-    return angle;
 }
 
 double distanceBetweenPoints(double x1, double y1, double x2, double y2) {

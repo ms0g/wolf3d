@@ -1,6 +1,6 @@
 #include "Map.h"
 
-void Map::Render(std::unique_ptr<ColorBuffer>& colorBuffer) const {
+void Map::Render(std::unique_ptr<Graphics>& graphics) const {
     for (int i = 0; i < MAP_NUM_ROWS; i++) {
         for (int j = 0; j < MAP_NUM_COLS; j++) {
             int x = j * TILE_SIZE * MINIMAP_SCALE_FACTOR;
@@ -11,11 +11,7 @@ void Map::Render(std::unique_ptr<ColorBuffer>& colorBuffer) const {
             uint32_t tileColor = map[i][j] != 0 ? 0xFFFFFFFF : 0x00000000;
 
             // Draw the rectangles
-            for (int xCoord = x; xCoord <= (x + width); xCoord++) {
-                for (int yCoord = y; yCoord <= (y + height); yCoord++) {
-                    colorBuffer->SetColor(xCoord, yCoord, tileColor);
-                }
-            }
+            graphics->DrawRect(x, y, width, height, tileColor);
         }
     }
 }

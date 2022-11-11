@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Constants.hpp"
-#include "ColorBuffer.h"
+#include "Graphics.h"
 
 class Map {
 public:
     Map() = default;
 
-    void Render(std::unique_ptr<ColorBuffer>& colorBuffer) const;
+    void Render(std::unique_ptr<Graphics>& graphics) const;
 
     [[nodiscard]] bool HasWallAt(double x, double y) const;
 

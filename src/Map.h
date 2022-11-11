@@ -12,7 +12,7 @@ public:
 
     [[nodiscard]] bool HasWallAt(double x, double y) const;
 
-    [[nodiscard]] int GetMapAt(float x, float y) const;
+    [[nodiscard]] int GetMapAt(int x, int y) const;
 
 private:
     const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {

@@ -9,7 +9,7 @@ void Map::Render(std::unique_ptr<Graphics>& graphics) const {
             int width = TILE_SIZE * MINIMAP_SCALE_FACTOR;
             int height = TILE_SIZE * MINIMAP_SCALE_FACTOR;
 
-            uint32_t tileColor = map[i][j] != 0 ? 0xFFFFFFFF : 0x00000000;
+            color_t tileColor = map[i][j] != 0 ? 0xFFFFFFFF : 0x00000000;
 
             // Draw the rectangles
             graphics->DrawRect(x, y, width, height, tileColor);
@@ -28,6 +28,6 @@ bool Map::HasWallAt(double x, double y) const {
     return map[mapGridIndexY][mapGridIndexX] != 0;
 }
 
-int Map::GetMapAt(float x, float y) const {
-    return map[static_cast<int>(y)][static_cast<int>(x)];
+int Map::GetMapAt(int x, int y) const {
+    return map[y][x];
 }

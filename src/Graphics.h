@@ -22,6 +22,6 @@ public:
 
 private:
     SDL_Texture* texture{};
-    std::array<uint32_t, WINDOW_WIDTH * WINDOW_HEIGHT> data{};
+    std::array<uint32_t, WINDOW_WIDTH * WINDOW_HEIGHT> colorBuffer{};
 };
 

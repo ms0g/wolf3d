@@ -15,18 +15,18 @@ Graphics::~Graphics() {
 void Graphics::Render(SDL_Renderer* renderer) {
     SDL_UpdateTexture(texture,
                       nullptr,
-                      data.data(),
+                      colorBuffer.data(),
                       WINDOW_WIDTH * sizeof(uint32_t));
 
     SDL_RenderCopy(renderer, texture, nullptr, nullptr);
 }
 
 void Graphics::DrawPixel(int x, int y, uint32_t color) {
-    data[(WINDOW_WIDTH * y) + x] = color;
+    colorBuffer[(WINDOW_WIDTH * y) + x] = color;
 }
 
 void Graphics::Clear(uint32_t color) {
-    data.fill(color);
+    colorBuffer.fill(color);
 }
 
 void Graphics::DrawRect(int x, int y, int width, int height, uint32_t color) {

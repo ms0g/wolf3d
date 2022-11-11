@@ -53,7 +53,7 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
             // found a wall hit
             horizontalWallHitX = nextHorizontalTouchX;
             horizontalWallHitY = nextHorizontalTouchY;
-            horizontalWallContent = map->GetContent(floor(xToCheck / TILE_SIZE), floor(yToCheck / TILE_SIZE));
+            horizontalWallContent = map->GetMapAt(floor(xToCheck / TILE_SIZE), floor(yToCheck / TILE_SIZE));
             foundHorizontalWallHit = true;
             break;
         } else {
@@ -99,7 +99,7 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
             // found a wall hit
             verticalWallHitX = nextVerticalTouchX;
             verticalWallHitY = nextVerticalTouchY;
-            verticalWallContent = map->GetContent(floor(xToCheck / TILE_SIZE), floor(yToCheck / TILE_SIZE));
+            verticalWallContent = map->GetMapAt(floor(xToCheck / TILE_SIZE), floor(yToCheck / TILE_SIZE));
             foundVerticalWallHit = true;
             break;
         } else {
@@ -133,15 +133,13 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
     }
 }
 
-void Ray::Render(SDL_Renderer* renderer, std::unique_ptr<Player>& player) const {
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderDrawLine(
-            renderer,
-            player->x * MINIMAP_SCALE_FACTOR,
-            player->y * MINIMAP_SCALE_FACTOR,
-            m_wallHitX * MINIMAP_SCALE_FACTOR,
-            m_wallHitY * MINIMAP_SCALE_FACTOR
-    );
+void Ray::Render(std::unique_ptr<Graphics>& graphics, std::unique_ptr<Player>& player) const {
+    int x = player->x * MINIMAP_SCALE_FACTOR;
+    int y = player->y * MINIMAP_SCALE_FACTOR;
+    int width = m_wallHitX * MINIMAP_SCALE_FACTOR;
+    int height = m_wallHitY * MINIMAP_SCALE_FACTOR;
+
+    graphics->DDA(x, y, width, height, 0xFF0000FF);
 }
 
 

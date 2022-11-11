@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include <SDL2/SDL.h>
+#include "Graphics.h"
 
 class Map;
 class Player;
@@ -35,7 +35,7 @@ public:
 
     void Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map);
 
-    void Render(SDL_Renderer* renderer, std::unique_ptr<Player>& player) const;
+    void Render(std::unique_ptr<Graphics>& graphics, std::unique_ptr<Player>& player) const;
 
 private:
     double m_angle;

@@ -21,21 +21,43 @@ void Graphics::Render(SDL_Renderer* renderer) {
     SDL_RenderCopy(renderer, texture, nullptr, nullptr);
 }
 
-void ColorBuffer::CreateTexture(SDL_Renderer* renderer) {
-    texture = SDL_CreateTexture(renderer,
-                                SDL_PIXELFORMAT_RGBA32,
-                                SDL_TEXTUREACCESS_STREAMING,
-                                WINDOW_WIDTH,
-                                WINDOW_HEIGHT);
-}
-
-void ColorBuffer::SetColor(int x, int y, uint32_t color) {
+void Graphics::DrawPixel(int x, int y, uint32_t color) {
     data[(WINDOW_WIDTH * y) + x] = color;
 }
 
 void Graphics::Clear(uint32_t color) {
     data.fill(color);
 }
+
+void Graphics::DrawRect(int x, int y, int width, int height, uint32_t color) {
+    for (int i = x; i <= (x + width); i++) {
+        for (int j = y; j <= (y + height); j++) {
+            DrawPixel(i, j, color);
+        }
+    }
+}
+
+void Graphics::DDA(int x0, int y0, int x1, int y1, uint32_t color) {
+    int dx = x1 - x0;
+    int dy = y1 - y0;
+
+    int step = (abs(dx) >= abs(dy)) ? abs(dx) : abs(dy);
+
+    float xInc = dx / static_cast<float>(step);
+    float yInc = dy / static_cast<float>(step);
+
+    float x = x0;
+    float y = y0;
+
+    for (int i = 0; i < step; ++i) {
+        DrawPixel(round(x), round(y), color);
+        x += xInc;
+        y += yInc;
+    }
+}
+
+
+
 
 
 

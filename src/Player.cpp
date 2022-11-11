@@ -3,18 +3,13 @@
 #include "Map.h"
 #include "Constants.hpp"
 
-void Player::Render(std::unique_ptr<ColorBuffer>& colorBuffer) const {
+void Player::Render(std::unique_ptr<Graphics>& graphics) const {
     int xCoord = static_cast<int>(x * MINIMAP_SCALE_FACTOR);
     int yCoord =static_cast<int>(y * MINIMAP_SCALE_FACTOR);
     int w = static_cast<int>(width * MINIMAP_SCALE_FACTOR);
     int h = static_cast<int>(height * MINIMAP_SCALE_FACTOR);
 
-    // Draw the rectangles
-    for (int i = xCoord; i <= (xCoord + w); i++) {
-        for (int j = yCoord; j <= (yCoord + h); j++) {
-            colorBuffer->SetColor(i, j, 0xFFFFFFFF);
-        }
-    }
+    graphics->DrawRect(xCoord,yCoord,w,h,0xFFFFFFFF);
 }
 
 void Player::Move(float deltaTime, std::unique_ptr<Map>& map) {

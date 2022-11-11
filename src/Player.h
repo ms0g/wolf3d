@@ -1,14 +1,14 @@
 #pragma once
 
 #include <memory>
-#include "ColorBuffer.h"
+#include "Graphics.h"
 
 class Map;
 class Player {
 public:
     Player() = default;
 
-    void Render(std::unique_ptr<ColorBuffer>& colorBuffer) const;
+    void Render(std::unique_ptr<Graphics>& graphics) const;
 
     void Move(float deltaTime, std::unique_ptr<Map>& map);
 

@@ -1,9 +1,9 @@
 #pragma once
 
 #include <memory>
-#include "Graphics.h"
 
 class Map;
+class Graphics;
 class Player {
 public:
     Player() = default;

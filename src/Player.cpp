@@ -1,15 +1,16 @@
 #include "Player.h"
 #include <cmath>
 #include "Map.h"
+#include "Graphics.h"
 #include "Constants.hpp"
 
 void Player::Render(std::unique_ptr<Graphics>& graphics) const {
     int xCoord = static_cast<int>(x * MINIMAP_SCALE_FACTOR);
-    int yCoord =static_cast<int>(y * MINIMAP_SCALE_FACTOR);
+    int yCoord = static_cast<int>(y * MINIMAP_SCALE_FACTOR);
     int w = static_cast<int>(width * MINIMAP_SCALE_FACTOR);
     int h = static_cast<int>(height * MINIMAP_SCALE_FACTOR);
 
-    graphics->DrawRect(xCoord,yCoord,w,h,0xFFFFFFFF);
+    graphics->DrawRect(xCoord, yCoord, w, h, 0xFFFFFFFF);
 }
 
 void Player::Move(float deltaTime, std::unique_ptr<Map>& map) {

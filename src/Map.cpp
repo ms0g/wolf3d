@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Graphics.h"
 
 void Map::Render(std::unique_ptr<Graphics>& graphics) const {
     for (int i = 0; i < MAP_NUM_ROWS; i++) {

@@ -1,8 +1,9 @@
 #pragma once
 
+#include <memory>
 #include "Constants.hpp"
-#include "Graphics.h"
 
+class Graphics;
 class Map {
 public:
     Map() = default;

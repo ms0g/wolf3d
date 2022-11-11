@@ -7,7 +7,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "Ray.h"
-#include "ColorBuffer.h"
+#include "Graphics.h"
 #include "Texture.h"
 #include "Constants.hpp"
 
@@ -44,7 +44,7 @@ private:
     std::unique_ptr<Player> player;
     std::unique_ptr<Map> map;
 
-    std::unique_ptr<ColorBuffer> colorBuffer;
+    std::unique_ptr<Graphics> graphics;
     std::unique_ptr<Texture> texture;
 
     std::array<Ray, NUM_RAYS> rays{};

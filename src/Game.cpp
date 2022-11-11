@@ -98,8 +98,7 @@ void Game::Setup() {
     player->turnSpeed = 45 * (std::numbers::pi / 180);
 
     // Create the color buffer
-    colorBuffer = std::make_unique<ColorBuffer>();
-    colorBuffer->CreateTexture(renderer);
+    graphics = std::make_unique<Graphics>(renderer);
 
     // Create texture
     texture = std::make_unique<Texture>();
@@ -125,8 +124,8 @@ void Game::Update() {
 }
 
 void Game::RenderRays() {
-    for (int i = 0; i < NUM_RAYS; i++) {
-        rays[i].Render(colorBuffer, player);
+    for (int i = 0; i < NUM_RAYS; i += 50) {
+        rays[i].Render(graphics, player);
     }
 }
 
@@ -145,7 +144,7 @@ void Game::Generate3DProjection() {
 
         // color of the ceiling
         for (int y = 0; y < wallTopPixel; ++y) {
-            colorBuffer->SetColor(x, y, 0xFF333333);
+            graphics->DrawPixel(x, y, 0xFF333333);
         }
 
         // get the texture id from map content
@@ -166,12 +165,12 @@ void Game::Generate3DProjection() {
 
             // set the color of the wall based on the color from the texture
             uint32_t texelColor = texture->GetColor(textureOffsetX, textureOffsetY, texNum);
-            colorBuffer->SetColor(x, y, texelColor);
+            graphics->DrawPixel(x, y, texelColor);
         }
 
         // color of the floor
         for (int y = wallBottomPixel; y < WINDOW_HEIGHT; ++y) {
-            colorBuffer->SetColor(x, y, 0xFF777777);
+            graphics->DrawPixel(x, y, 0xFF777777);
         }
     }
 }
@@ -182,13 +181,13 @@ void Game::Render() {
 
     Generate3DProjection();
 
-    map->Render(colorBuffer);
+    map->Render(graphics);
 
-    player->Render(colorBuffer);
     RenderRays();
+    player->Render(graphics);
 
-    colorBuffer->Render(renderer);
-    colorBuffer->Clear(0xFF000000);
+    graphics->Render(renderer);
+    graphics->Clear(0xFF000000);
 
     SDL_RenderPresent(renderer);
 

@@ -27,7 +27,7 @@ void Game::Initialize() {
             SDL_WINDOWPOS_CENTERED,
             displayMode.w,
             displayMode.h,
-            SDL_WINDOW_BORDERLESS);
+            SDL_WINDOW_RESIZABLE);
 
     if (!window) {
         std::cerr << "Error creating SDL Window";

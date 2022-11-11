@@ -9,6 +9,7 @@
 #include "Ray.h"
 #include "Graphics.h"
 #include "Texture.h"
+#include "Wall.h"
 #include "Constants.hpp"
 
 class Game {
@@ -36,8 +37,6 @@ private:
 
     void RenderRays();
 
-    void Generate3DProjection();
-
     SDL_Window* window{};
     SDL_Renderer* renderer{};
 
@@ -46,6 +45,7 @@ private:
 
     std::unique_ptr<Graphics> graphics;
     std::unique_ptr<Texture> texture;
+    std::unique_ptr<Wall> wall;
 
     std::array<Ray, NUM_RAYS> rays{};
 

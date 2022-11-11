@@ -16,20 +16,21 @@ void Graphics::Render(SDL_Renderer* renderer) {
     SDL_UpdateTexture(texture,
                       nullptr,
                       colorBuffer.data(),
-                      WINDOW_WIDTH * sizeof(uint32_t));
+                      WINDOW_WIDTH * sizeof(color_t));
 
     SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+    SDL_RenderPresent(renderer);
 }
 
-void Graphics::DrawPixel(int x, int y, uint32_t color) {
+void Graphics::DrawPixel(int x, int y, color_t color) {
     colorBuffer[(WINDOW_WIDTH * y) + x] = color;
 }
 
-void Graphics::Clear(uint32_t color) {
+void Graphics::Clear(color_t color) {
     colorBuffer.fill(color);
 }
 
-void Graphics::DrawRect(int x, int y, int width, int height, uint32_t color) {
+void Graphics::DrawRect(int x, int y, int width, int height, color_t color) {
     for (int i = x; i <= (x + width); i++) {
         for (int j = y; j <= (y + height); j++) {
             DrawPixel(i, j, color);
@@ -37,7 +38,7 @@ void Graphics::DrawRect(int x, int y, int width, int height, uint32_t color) {
     }
 }
 
-void Graphics::DDA(int x0, int y0, int x1, int y1, uint32_t color) {
+void Graphics::DDA(int x0, int y0, int x1, int y1, color_t color) {
     int dx = x1 - x0;
     int dy = y1 - y0;
 

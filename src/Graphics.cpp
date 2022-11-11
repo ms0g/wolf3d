@@ -1,6 +1,18 @@
-#include "ColorBuffer.h"
+#include "Graphics.h"
 
-void ColorBuffer::Render(SDL_Renderer* renderer) {
+Graphics::Graphics(SDL_Renderer* renderer) {
+    texture = SDL_CreateTexture(renderer,
+                                SDL_PIXELFORMAT_RGBA32,
+                                SDL_TEXTUREACCESS_STREAMING,
+                                WINDOW_WIDTH,
+                                WINDOW_HEIGHT);
+}
+
+Graphics::~Graphics() {
+    SDL_DestroyTexture(texture);
+}
+
+void Graphics::Render(SDL_Renderer* renderer) {
     SDL_UpdateTexture(texture,
                       nullptr,
                       data.data(),
@@ -21,7 +33,7 @@ void ColorBuffer::SetColor(int x, int y, uint32_t color) {
     data[(WINDOW_WIDTH * y) + x] = color;
 }
 
-void ColorBuffer::Clear(uint32_t color) {
+void Graphics::Clear(uint32_t color) {
     data.fill(color);
 }
 

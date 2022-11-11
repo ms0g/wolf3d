@@ -4,17 +4,13 @@
 #include <SDL2/SDL.h>
 #include "Constants.hpp"
 
-class ColorBuffer {
+class Graphics {
 public:
-    ColorBuffer() = default;
+    explicit Graphics(SDL_Renderer* renderer);
 
-    ~ColorBuffer() {
-        SDL_DestroyTexture(texture);
-    }
+    ~Graphics();
 
     void Clear(uint32_t color);
-
-    void CreateTexture(SDL_Renderer* renderer);
 
     void Render(SDL_Renderer* renderer);
 

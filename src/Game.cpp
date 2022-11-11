@@ -134,16 +134,13 @@ void Game::Render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    Generate3DProjection();
+    graphics->Clear(0xFF000000);
 
     wall->Render(rays, player, graphics, texture);
     map->Render(graphics);
-
     RenderRays();
     player->Render(graphics);
-
     graphics->Render(renderer);
-    graphics->Clear(0xFF000000);
 
     SDL_RenderPresent(renderer);
 

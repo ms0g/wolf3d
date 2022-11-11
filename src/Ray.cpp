@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "Utils.h"
+#include "Graphics.h"
 #include "Constants.hpp"
 
 void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map) {

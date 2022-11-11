@@ -1,10 +1,10 @@
 #pragma once
 
 #include <memory>
-#include "Graphics.h"
 
 class Map;
 class Player;
+class Graphics;
 class Ray {
 public:
     Ray() = default;

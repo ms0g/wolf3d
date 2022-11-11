@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <numbers>
 
 class Map;
 class Player;
@@ -33,6 +34,25 @@ public:
         return m_wasHitVertical;
     }
 
+private:
+    bool IsRayFacingDown(double angle) {
+        return angle > 0 && angle < std::numbers::pi;
+    }
+
+    bool IsRayFacingUp(double angle) {
+        return !IsRayFacingDown(angle);
+    }
+
+    bool IsRayFacingRight(double angle) {
+        return angle < 0.5 * std::numbers::pi || angle > 1.5 * std::numbers::pi;
+
+    }
+
+    bool IsRayFacingLeft(double angle) {
+        return !IsRayFacingRight(angle);
+    }
+
+public:
     void Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map);
 
     void Render(std::unique_ptr<Graphics>& graphics, std::unique_ptr<Player>& player) const;

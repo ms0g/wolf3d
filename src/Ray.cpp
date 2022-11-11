@@ -7,13 +7,7 @@
 #include "Constants.hpp"
 
 void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map) {
-    angle = normalizeAngle(angle);
-
-    auto isRayFacingDown = angle > 0 && angle < std::numbers::pi;
-    auto isRayFacingUp = !isRayFacingDown;
-
-    auto isRayFacingRight = angle < 0.5 * std::numbers::pi || angle > 1.5 * std::numbers::pi;
-    auto isRayFacingLeft = !isRayFacingRight;
+    normalizeAngle(angle);
 
     double xintercept, yintercept;
     double xstep, ystep;
@@ -28,18 +22,18 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
 
     // Find the y-coordinate of the closest horizontal grid intersection
     yintercept = floor(player->y / TILE_SIZE) * TILE_SIZE;
-    yintercept += isRayFacingDown ? TILE_SIZE : 0;
+    yintercept += IsRayFacingDown(angle) ? TILE_SIZE : 0;
 
     // Find the x-coordinate of the closest horizontal grid intersection
     xintercept = player->x + (yintercept - player->y) / tan(angle);
 
     // Calculate the increment xstep and ystep
     ystep = TILE_SIZE;
-    ystep *= isRayFacingUp ? -1 : 1;
+    ystep *= IsRayFacingUp(angle) ? -1 : 1;
 
     xstep = TILE_SIZE / tan(angle);
-    xstep *= (isRayFacingLeft && xstep > 0) ? -1 : 1;
-    xstep *= (isRayFacingRight && xstep < 0) ? -1 : 1;
+    xstep *= (IsRayFacingLeft(angle) && xstep > 0) ? -1 : 1;
+    xstep *= (IsRayFacingRight(angle) && xstep < 0) ? -1 : 1;
 
     double nextHorizontalTouchX = xintercept;
     double nextHorizontalTouchY = yintercept;
@@ -48,7 +42,7 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
     while (nextHorizontalTouchX >= 0 && nextHorizontalTouchX <= MAP_NUM_COLS * TILE_SIZE && nextHorizontalTouchY >= 0 &&
            nextHorizontalTouchY <= MAP_NUM_ROWS * TILE_SIZE) {
         double xToCheck = nextHorizontalTouchX;
-        double yToCheck = nextHorizontalTouchY + (isRayFacingUp ? -1 : 0);
+        double yToCheck = nextHorizontalTouchY + (IsRayFacingUp(angle) ? -1 : 0);
 
         if (map->HasWallAt(xToCheck, yToCheck)) {
             // found a wall hit
@@ -74,18 +68,18 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
 
     // Find the x-coordinate of the closest vertical grid intersection
     xintercept = floor(player->x / TILE_SIZE) * TILE_SIZE;
-    xintercept += isRayFacingRight ? TILE_SIZE : 0;
+    xintercept += IsRayFacingRight(angle) ? TILE_SIZE : 0;
 
     // Find the y-coordinate of the closest vertical grid intersection
     yintercept = player->y + (xintercept - player->x) * tan(angle);
 
     // Calculate the increment xstep and ystep
     xstep = TILE_SIZE;
-    xstep *= isRayFacingLeft ? -1 : 1;
+    xstep *= IsRayFacingLeft(angle) ? -1 : 1;
 
     ystep = TILE_SIZE * tan(angle);
-    ystep *= (isRayFacingUp && ystep > 0) ? -1 : 1;
-    ystep *= (isRayFacingDown && ystep < 0) ? -1 : 1;
+    ystep *= (IsRayFacingUp(angle) && ystep > 0) ? -1 : 1;
+    ystep *= (IsRayFacingDown(angle) && ystep < 0) ? -1 : 1;
 
     double nextVerticalTouchX = xintercept;
     double nextVerticalTouchY = yintercept;
@@ -93,7 +87,7 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
     // Increment xstep and ystep until we find a wall
     while (nextVerticalTouchX >= 0 && nextVerticalTouchX <= MAP_NUM_COLS * TILE_SIZE && nextVerticalTouchY >= 0 &&
            nextVerticalTouchY <= MAP_NUM_ROWS * TILE_SIZE) {
-        double xToCheck = nextVerticalTouchX + (isRayFacingLeft ? -1 : 0);
+        double xToCheck = nextVerticalTouchX + (IsRayFacingLeft(angle) ? -1 : 0);
         double yToCheck = nextVerticalTouchY;
 
         if (map->HasWallAt(xToCheck, yToCheck)) {

@@ -24,4 +24,4 @@ constexpr double FOV_ANGLE{(60 * (std::numbers::pi / 180))};
 
 static const double DIST_PROJ_PLANE{(WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2)};
 
-
+using color_t = uint32_t;

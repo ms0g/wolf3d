@@ -42,7 +42,7 @@ void Wall::Render(std::array<Ray, NUM_RAYS>& rays,
             int textureOffsetY = distanceFromTop * (static_cast<float>(textureHeight) / wallStripHeight);
 
             // set the color of the wall based on the color from the texture
-            uint32_t texelColor = texture->GetColor(textureOffsetX, textureOffsetY, texNum);
+            color_t texelColor = texture->GetColor(textureOffsetX, textureOffsetY, texNum);
             graphics->DrawPixel(x, y, texelColor);
         }
 

@@ -10,13 +10,13 @@ public:
 
     ~Texture();
 
-    uint32_t GetColor(int x, int y, int texNum);
+    color_t GetColor(int x, int y, int texNum);
 
     typedef struct texture_t {
         upng_t* upngTexture;
         int width;
         int height;
-        uint32_t* texture_buffer;
+        color_t* texture_buffer;
     } texture_t;
 
     texture_t& GetTexture(int texNum);

@@ -11,14 +11,14 @@ Texture::Texture() {
                 wallTextures[i].upngTexture = upng;
                 wallTextures[i].width = upng_get_width(upng);
                 wallTextures[i].height = upng_get_height(upng);
-                wallTextures[i].texture_buffer = reinterpret_cast<uint32_t*>(
+                wallTextures[i].texture_buffer = reinterpret_cast<color_t*>(
                         const_cast<unsigned char*>(upng_get_buffer(upng)));
             }
         }
     }
 }
 
-uint32_t Texture::GetColor(int x, int y, int texNum) {
+color_t Texture::GetColor(int x, int y, int texNum) {
     auto& tex = wallTextures[texNum];
     return tex.texture_buffer[(tex.width * y) + x];
 }

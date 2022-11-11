@@ -44,16 +44,16 @@ void Graphics::DDA(int x0, int y0, int x1, int y1, color_t color) {
 
     int step = (abs(dx) >= abs(dy)) ? abs(dx) : abs(dy);
 
-    float xInc = dx / static_cast<float>(step);
-    float yInc = dy / static_cast<float>(step);
+    float xinc = dx / static_cast<float>(step);
+    float yinc = dy / static_cast<float>(step);
 
     float x = x0;
     float y = y0;
 
     for (int i = 0; i < step; ++i) {
         DrawPixel(round(x), round(y), color);
-        x += xInc;
-        y += yInc;
+        x += xinc;
+        y += yinc;
     }
 }
 

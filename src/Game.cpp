@@ -131,9 +131,6 @@ void Game::RenderRays() {
 }
 
 void Game::Render() {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-
     graphics->Clear(0xFF000000);
 
     wall->Render(rays, player, graphics, texture);
@@ -141,9 +138,6 @@ void Game::Render() {
     RenderRays();
     player->Render(graphics);
     graphics->Render(renderer);
-
-    SDL_RenderPresent(renderer);
-
 }
 
 void Game::Destroy() {

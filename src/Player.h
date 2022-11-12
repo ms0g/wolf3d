@@ -18,7 +18,7 @@ public:
     float height;
     int turnDirection;     /** -1 for left, +1 for right */
     int walkDirection;     /** -1 for back, +1 for front */
-    float rotationAngle;
+    double rotationAngle;
     float walkSpeed;
     float turnSpeed;
 };

@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Graphics.h"
 #include "Texture.h"
+#include "Utils.h"
 
 void Wall::Render(std::array<Ray, NUM_RAYS>& rays,
                   std::unique_ptr<Player>& player,
@@ -43,6 +44,11 @@ void Wall::Render(std::array<Ray, NUM_RAYS>& rays,
 
             // set the color of the wall based on the color from the texture
             color_t texelColor = texture->GetColor(textureOffsetX, textureOffsetY, texNum);
+
+            if (rays[x].WasHitVertical()) {
+                changeColorIntensity(texelColor, 0.7);
+            }
+
             graphics->DrawPixel(x, y, texelColor);
         }
 

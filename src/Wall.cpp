@@ -11,10 +11,10 @@ void Wall::Render(std::array<Ray, NUM_RAYS>& rays,
                   std::unique_ptr<Texture>& texture) {
     for (int x = 0; x < NUM_RAYS; ++x) {
         // Calculate the perpendicular distance to avoid fish-eye distortion
-        double perpendicularDistance = rays[x].Distance() * cos(rays[x].Angle() - player->rotationAngle);
+        float perpendicularDistance = rays[x].Distance() * cos(rays[x].Angle() - player->rotationAngle);
 
         // Calculate the projected wall height
-        double wallHeight = (TILE_SIZE / perpendicularDistance) * DIST_PROJ_PLANE;
+        float wallHeight = (TILE_SIZE / perpendicularDistance) * DIST_PROJ_PLANE;
 
         int wallTopY = (WINDOW_HEIGHT / 2) - (wallHeight / 2);
         wallTopY = wallTopY < 0 ? 0 : wallTopY;
@@ -30,8 +30,8 @@ void Wall::Render(std::array<Ray, NUM_RAYS>& rays,
         // get the texture id from map content
         int texNum = rays[x].WallHitContent() - 1;
 
-        int textureWidht = upng_get_width(texture->GetTexture(texNum));
-        int textureHeight = upng_get_height(texture->GetTexture(texNum));
+        int textureWidht = texture->GetWidth(texNum);
+        int textureHeight = texture->GetHeight(texNum);
 
         // calculate texture offset X
         auto textureOffsetX = rays[x].WasHitVertical() ? static_cast<int>(rays[x].WallHitY()) % textureHeight :

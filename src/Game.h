@@ -10,6 +10,7 @@
 #include "Graphics.h"
 #include "Texture.h"
 #include "Wall.h"
+#include "Sprite.h"
 #include "Constants.hpp"
 
 class Game {
@@ -45,6 +46,7 @@ private:
 
     std::unique_ptr<Graphics> graphics;
     std::unique_ptr<Texture> texture;
+    std::unique_ptr<Sprite> sprite;
     std::unique_ptr<Wall> wall;
 
     std::array<Ray, NUM_RAYS> rays{};

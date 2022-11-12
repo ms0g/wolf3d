@@ -5,7 +5,9 @@ Game::Game() :
         isRunning(false),
         player(std::make_unique<Player>()),
         map(std::make_unique<Map>()),
-        wall(std::make_unique<Wall>()) {
+        wall(std::make_unique<Wall>()),
+        texture(std::make_unique<Texture>()),
+        sprite(std::make_unique<Sprite>()) {
     std::cout << "Game ctor called" << std::endl;
 }
 
@@ -35,7 +37,10 @@ void Game::Initialize() {
         return;
     }
 
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(
+            window,
+            -1,
+            SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!renderer) {
         std::cerr << "Error creating SDL Renderer" << std::endl;
         return;
@@ -94,20 +99,17 @@ void Game::Setup() {
     player->height = 5;
     player->turnDirection = 0;
     player->walkDirection = 0;
-    player->walkSpeed = 200;
+    player->walkSpeed = 300;
     player->rotationAngle = std::numbers::pi / 2;
-    player->turnSpeed = 45 * (std::numbers::pi / 180);
+    player->turnSpeed = 70 * (std::numbers::pi / 180);
 
     // Create the color buffer
     graphics = std::make_unique<Graphics>(renderer);
-
-    // Create texture
-    texture = std::make_unique<Texture>();
 }
 
 void Game::CastRays() {
     for (int i = 0; i < NUM_RAYS; i++) {
-        double rayAngle = player->rotationAngle + atan((i - NUM_RAYS / 2) / DIST_PROJ_PLANE);
+        float rayAngle = player->rotationAngle + atan((i - NUM_RAYS / 2) / DIST_PROJ_PLANE);
         rays[i].Cast(rayAngle, player, map);
     }
 }
@@ -134,9 +136,14 @@ void Game::Render() {
     graphics->Clear(0xFF000000);
 
     wall->Render(rays, player, graphics, texture);
+    sprite->Render(graphics, texture, player);
+
+    // minimap rendering
     map->Render(graphics);
     RenderRays();
+    sprite->RenderOnMap(graphics);
     player->Render(graphics);
+
     graphics->Render(renderer);
 }
 

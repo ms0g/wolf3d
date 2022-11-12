@@ -16,6 +16,7 @@ void Player::Render(std::unique_ptr<Graphics>& graphics) const {
 
 void Player::Move(float deltaTime, std::unique_ptr<Map>& map) {
     rotationAngle += turnDirection * turnSpeed * deltaTime;
+
     normalizeAngle(rotationAngle);
 
     float moveStep = walkDirection * walkSpeed * deltaTime;

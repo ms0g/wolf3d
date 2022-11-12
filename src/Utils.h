@@ -2,8 +2,8 @@
 
 #include <cstdint>
 
-void normalizeAngle(double& angle);
+void normalizeAngle(float& angle);
 
-double distanceBetweenPoints(double x1, double y1, double x2, double y2);
+float distanceBetweenPoints(float x1, float y1, float x2, float y2);
 
 void changeColorIntensity(uint32_t& color, float factor);

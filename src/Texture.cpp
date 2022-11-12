@@ -25,8 +25,12 @@ color_t Texture::GetColor(int x, int y, int texNum) {
     return buffer[(width * y) + x];
 }
 
-upng_t* Texture::GetTexture(int texNum) {
-    return textures[texNum];
+int Texture::GetWidth(int texNum) {
+    return upng_get_width(textures[texNum]);
+}
+
+int Texture::GetHeight(int texNum) {
+    return upng_get_height(textures[texNum]);
 }
 
 Texture::~Texture() {
@@ -34,5 +38,7 @@ Texture::~Texture() {
         upng_free(texture);
     }
 }
+
+
 
 

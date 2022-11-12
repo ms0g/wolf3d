@@ -6,18 +6,18 @@
 #include "Graphics.h"
 #include "Constants.hpp"
 
-void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map) {
+void Ray::Cast(float angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map) {
     normalizeAngle(angle);
 
-    double xintercept, yintercept;
-    double xstep, ystep;
+    float xintercept, yintercept;
+    float xstep, ystep;
 
     /** 
      * HORIZONTAL RAY-GRID INTERSECTION CODE 
      */
     bool foundHorizontalWallHit = false;
-    double horizontalWallHitX = 0;
-    double horizontalWallHitY = 0;
+    float horizontalWallHitX = 0;
+    float horizontalWallHitY = 0;
     int horizontalWallContent = 0;
 
     // Find the y-coordinate of the closest horizontal grid intersection
@@ -35,14 +35,14 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
     xstep *= (IsRayFacingLeft(angle) && xstep > 0) ? -1 : 1;
     xstep *= (IsRayFacingRight(angle) && xstep < 0) ? -1 : 1;
 
-    double nextHorizontalTouchX = xintercept;
-    double nextHorizontalTouchY = yintercept;
+    float nextHorizontalTouchX = xintercept;
+    float nextHorizontalTouchY = yintercept;
 
     // Increment xstep and ystep until we find a wall
     while (nextHorizontalTouchX >= 0 && nextHorizontalTouchX <= MAP_NUM_COLS * TILE_SIZE && nextHorizontalTouchY >= 0 &&
            nextHorizontalTouchY <= MAP_NUM_ROWS * TILE_SIZE) {
-        double xToCheck = nextHorizontalTouchX;
-        double yToCheck = nextHorizontalTouchY + (IsRayFacingUp(angle) ? -1 : 0);
+        float xToCheck = nextHorizontalTouchX;
+        float yToCheck = nextHorizontalTouchY + (IsRayFacingUp(angle) ? -1 : 0);
 
         if (map->HasWallAt(xToCheck, yToCheck)) {
             // found a wall hit
@@ -62,8 +62,8 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
      * VERTICAL RAY-GRID INTERSECTION CODE
      */
     bool foundVerticalWallHit = false;
-    double verticalWallHitX = 0;
-    double verticalWallHitY = 0;
+    float verticalWallHitX = 0;
+    float verticalWallHitY = 0;
     int verticalWallContent = 0;
 
     // Find the x-coordinate of the closest vertical grid intersection
@@ -81,14 +81,14 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
     ystep *= (IsRayFacingUp(angle) && ystep > 0) ? -1 : 1;
     ystep *= (IsRayFacingDown(angle) && ystep < 0) ? -1 : 1;
 
-    double nextVerticalTouchX = xintercept;
-    double nextVerticalTouchY = yintercept;
+    float nextVerticalTouchX = xintercept;
+    float nextVerticalTouchY = yintercept;
 
     // Increment xstep and ystep until we find a wall
     while (nextVerticalTouchX >= 0 && nextVerticalTouchX <= MAP_NUM_COLS * TILE_SIZE && nextVerticalTouchY >= 0 &&
            nextVerticalTouchY <= MAP_NUM_ROWS * TILE_SIZE) {
-        double xToCheck = nextVerticalTouchX + (IsRayFacingLeft(angle) ? -1 : 0);
-        double yToCheck = nextVerticalTouchY;
+        float xToCheck = nextVerticalTouchX + (IsRayFacingLeft(angle) ? -1 : 0);
+        float yToCheck = nextVerticalTouchY;
 
         if (map->HasWallAt(xToCheck, yToCheck)) {
             // found a wall hit
@@ -104,10 +104,10 @@ void Ray::Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Ma
     }
 
     // Calculate both horizontal and vertical hit distances and choose the smallest one
-    double horizontalHitDistance = foundHorizontalWallHit
+    float horizontalHitDistance = foundHorizontalWallHit
                                    ? distanceBetweenPoints(player->x, player->y, horizontalWallHitX, horizontalWallHitY)
                                    : FLT_MAX;
-    double verticalHitDistance = foundVerticalWallHit
+    float verticalHitDistance = foundVerticalWallHit
                                  ? distanceBetweenPoints(player->x, player->y, verticalWallHitX, verticalWallHitY)
                                  : FLT_MAX;
 

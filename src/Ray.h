@@ -10,15 +10,15 @@ class Ray {
 public:
     Ray() = default;
 
-    [[nodiscard]] double Angle() const {
+    [[nodiscard]] float Angle() const {
         return m_angle;
     }
 
-    [[nodiscard]] double WallHitX() const {
+    [[nodiscard]] float WallHitX() const {
         return m_wallHitX;
     }
 
-    [[nodiscard]] double WallHitY() const {
+    [[nodiscard]] float WallHitY() const {
         return m_wallHitY;
     }
 
@@ -26,7 +26,7 @@ public:
         return m_wallHitContent;
     }
 
-    [[nodiscard]] double Distance() const {
+    [[nodiscard]] float Distance() const {
         return m_distance;
     }
 
@@ -35,33 +35,33 @@ public:
     }
 
 private:
-    bool IsRayFacingDown(double angle) {
+    bool IsRayFacingDown(float angle) {
         return angle > 0 && angle < std::numbers::pi;
     }
 
-    bool IsRayFacingUp(double angle) {
+    bool IsRayFacingUp(float angle) {
         return !IsRayFacingDown(angle);
     }
 
-    bool IsRayFacingRight(double angle) {
+    bool IsRayFacingRight(float angle) {
         return angle < 0.5 * std::numbers::pi || angle > 1.5 * std::numbers::pi;
 
     }
 
-    bool IsRayFacingLeft(double angle) {
+    bool IsRayFacingLeft(float angle) {
         return !IsRayFacingRight(angle);
     }
 
 public:
-    void Cast(double angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map);
+    void Cast(float angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map);
 
     void Render(std::unique_ptr<Graphics>& graphics, std::unique_ptr<Player>& player) const;
 
 private:
-    double m_angle;
-    double m_wallHitX;
-    double m_wallHitY;
-    double m_distance;
+    float m_angle;
+    float m_wallHitX;
+    float m_wallHitY;
+    float m_distance;
     bool m_wasHitVertical;
     int m_wallHitContent;
 

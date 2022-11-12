@@ -1,35 +1,37 @@
 #include "Texture.h"
+#include <iostream>
 
 Texture::Texture() {
     for (int i = 0; i < NUM_TEXTURES; i++) {
-        upng_t* upng;
+        upng_t* upng = upng_new_from_file(textureFileNames[i]);
 
-        upng = upng_new_from_file(textureFileNames[i]);
         if (upng != nullptr) {
             upng_decode(upng);
-            if (upng_get_error(upng) == UPNG_EOK) {
-                wallTextures[i].upngTexture = upng;
-                wallTextures[i].width = upng_get_width(upng);
-                wallTextures[i].height = upng_get_height(upng);
-                wallTextures[i].texture_buffer = reinterpret_cast<color_t*>(
-                        const_cast<unsigned char*>(upng_get_buffer(upng)));
-            }
+            if (upng_get_error(upng) == UPNG_EOK)
+                textures[i] = upng;
+            else
+                std::cerr << "Error decoding texture " << textureFileNames[i] << "\n";
+        } else {
+            std::cerr << "Error loading texture " << textureFileNames[i] << "\n";
         }
     }
 }
 
 color_t Texture::GetColor(int x, int y, int texNum) {
-    auto& tex = wallTextures[texNum];
-    return tex.texture_buffer[(tex.width * y) + x];
+    auto tex = textures[texNum];
+    auto width = upng_get_width(tex);
+    auto* buffer = reinterpret_cast<color_t*>(const_cast<unsigned char*>(upng_get_buffer(tex)));
+
+    return buffer[(width * y) + x];
 }
 
-Texture::texture_t& Texture::GetTexture(int texNum) {
-    return wallTextures[texNum];
+upng_t* Texture::GetTexture(int texNum) {
+    return textures[texNum];
 }
 
 Texture::~Texture() {
-    for (auto& wallTexture: wallTextures) {
-        upng_free(wallTexture.upngTexture);
+    for (auto texture: textures) {
+        upng_free(texture);
     }
 }
 

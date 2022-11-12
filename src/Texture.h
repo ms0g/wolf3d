@@ -12,27 +12,22 @@ public:
 
     color_t GetColor(int x, int y, int texNum);
 
-    typedef struct texture_t {
-        upng_t* upngTexture;
-        int width;
-        int height;
-        color_t* texture_buffer;
-    } texture_t;
-
-    texture_t& GetTexture(int texNum);
+    upng_t* GetTexture(int texNum);
 
 private:
-    texture_t wallTextures[NUM_TEXTURES]{};
+    static constexpr int NUM_TEXTURES{8};
+
+    std::array<upng_t*, NUM_TEXTURES> textures{};
 
     const char* textureFileNames[NUM_TEXTURES] = {
-            "../assets/redbrick.png",
-            "../assets/purplestone.png",
-            "../assets/mossystone.png",
-            "../assets/graystone.png",
-            "../assets/colorstone.png",
-            "../assets/bluestone.png",
-            "../assets/wood.png",
-            "../assets/eagle.png",
+            "../assets/textures/redbrick.png",
+            "../assets/textures/purplestone.png",
+            "../assets/textures/mossystone.png",
+            "../assets/textures/graystone.png",
+            "../assets/textures/colorstone.png",
+            "../assets/textures/bluestone.png",
+            "../assets/textures/wood.png",
+            "../assets/textures/eagle.png",
     };
 };
 

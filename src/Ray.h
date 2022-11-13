@@ -22,8 +22,8 @@ public:
         return m_wallHitY;
     }
 
-    [[nodiscard]] int WallHitContent() const {
-        return m_wallHitContent;
+    [[nodiscard]] int Texture() const {
+        return m_texture;
     }
 
     [[nodiscard]] float Distance() const {
@@ -63,6 +63,6 @@ private:
     float m_wallHitY;
     float m_distance;
     bool m_wasHitVertical;
-    int m_wallHitContent;
+    int m_texture;
 
 };

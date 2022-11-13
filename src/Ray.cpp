@@ -18,7 +18,7 @@ void Ray::Cast(float angle, std::unique_ptr<Player>& player, std::unique_ptr<Map
     bool foundHorizontalWallHit = false;
     float horizontalWallHitX = 0;
     float horizontalWallHitY = 0;
-    int horizontalWallContent = 0;
+    int horizontalWallTexture = 0;
 
     // Find the y-coordinate of the closest horizontal grid intersection
     yintercept = floor(player->y / TILE_SIZE) * TILE_SIZE;
@@ -48,7 +48,7 @@ void Ray::Cast(float angle, std::unique_ptr<Player>& player, std::unique_ptr<Map
             // found a wall hit
             horizontalWallHitX = nextHorizontalTouchX;
             horizontalWallHitY = nextHorizontalTouchY;
-            horizontalWallContent = map->GetMapAt(floor(xToCheck / TILE_SIZE), floor(yToCheck / TILE_SIZE));
+            horizontalWallTexture = map->GetMapAt(floor(xToCheck / TILE_SIZE), floor(yToCheck / TILE_SIZE));
             foundHorizontalWallHit = true;
             break;
         } else {
@@ -64,7 +64,7 @@ void Ray::Cast(float angle, std::unique_ptr<Player>& player, std::unique_ptr<Map
     bool foundVerticalWallHit = false;
     float verticalWallHitX = 0;
     float verticalWallHitY = 0;
-    int verticalWallContent = 0;
+    int verticalWallTexture = 0;
 
     // Find the x-coordinate of the closest vertical grid intersection
     xintercept = floor(player->x / TILE_SIZE) * TILE_SIZE;
@@ -94,7 +94,7 @@ void Ray::Cast(float angle, std::unique_ptr<Player>& player, std::unique_ptr<Map
             // found a wall hit
             verticalWallHitX = nextVerticalTouchX;
             verticalWallHitY = nextVerticalTouchY;
-            verticalWallContent = map->GetMapAt(floor(xToCheck / TILE_SIZE), floor(yToCheck / TILE_SIZE));
+            verticalWallTexture = map->GetMapAt(floor(xToCheck / TILE_SIZE), floor(yToCheck / TILE_SIZE));
             foundVerticalWallHit = true;
             break;
         } else {
@@ -115,14 +115,14 @@ void Ray::Cast(float angle, std::unique_ptr<Player>& player, std::unique_ptr<Map
         m_distance = verticalHitDistance;
         m_wallHitX = verticalWallHitX;
         m_wallHitY = verticalWallHitY;
-        m_wallHitContent = verticalWallContent;
+        m_texture = verticalWallTexture;
         m_wasHitVertical = true;
         m_angle = angle;
     } else {
         m_distance = horizontalHitDistance;
         m_wallHitX = horizontalWallHitX;
         m_wallHitY = horizontalWallHitY;
-        m_wallHitContent = horizontalWallContent;
+        m_texture = horizontalWallTexture;
         m_wasHitVertical = false;
         m_angle = angle;
     }

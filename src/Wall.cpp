@@ -28,7 +28,7 @@ void Wall::Render(std::array<Ray, NUM_RAYS>& rays,
         }
 
         // get the texture id from map content
-        int texNum = rays[x].WallHitContent() - 1;
+        int texNum = rays[x].Texture() - 1;
 
         int textureWidht = texture->GetWidth(texNum);
         int textureHeight = texture->GetHeight(texNum);

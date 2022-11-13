@@ -4,12 +4,13 @@
 #include "Player.h"
 #include "Graphics.h"
 #include "Texture.h"
+#include "Ray.h"
 #include "Utils.h"
-#include "Constants.hpp"
 
 void Sprite::Render(std::unique_ptr<Graphics>& graphics,
                     std::unique_ptr<Texture>& texture,
-                    std::unique_ptr<Player>& player) {
+                    std::unique_ptr<Player>& player,
+                    std::array<Ray, NUM_RAYS>& rays) {
     std::array<sprite_t, NUM_SPRITES> visibleSprites{};
     int visibleSpriteCount = 0;
 
@@ -43,7 +44,10 @@ void Sprite::Render(std::unique_ptr<Graphics>& graphics,
     });
 
     for (auto& vs: visibleSprites) {
-        float spriteHeight = (TILE_SIZE / vs.distance) * DIST_PROJ_PLANE;
+        // Calculate the perpendicular distance to avoid fisheye effect
+        float perpendicularDistance = vs.distance * cos(vs.angle);
+
+        float spriteHeight = (TILE_SIZE / perpendicularDistance) * DIST_PROJ_PLANE;
         float spriteWidth = spriteHeight;
 
         float spriteTopY = (WINDOW_HEIGHT / 2) - (spriteHeight / 2);
@@ -62,8 +66,8 @@ void Sprite::Render(std::unique_ptr<Graphics>& graphics,
         // Sprite Right X
         float spriteRightX = spriteLeftX + spriteWidth;
 
-        int textureWidth = texture->GetWidth(vs.index);
-        int textureHeight = texture->GetHeight(vs.index);
+        int textureWidth = texture->GetWidth(vs.texture);
+        int textureHeight = texture->GetHeight(vs.texture);
 
         for (int i = spriteLeftX; i < spriteRightX; i++) {
             float texelWidth = (textureWidth / spriteWidth);
@@ -74,9 +78,9 @@ void Sprite::Render(std::unique_ptr<Graphics>& graphics,
                     int distanceFromTop = j + (spriteHeight / 2) - (WINDOW_HEIGHT / 2);
                     int textureOffsetY = distanceFromTop * (textureHeight / spriteHeight);
 
-                    color_t texelColor = texture->GetColor(textureOffsetX, textureOffsetY, vs.index);
+                    color_t texelColor = texture->GetColor(textureOffsetX, textureOffsetY, vs.texture);
 
-                    if (texelColor != 0xFFFF00FF)
+                    if (vs.distance < rays[i].Distance() && texelColor != 0xFFFF00FF)
                         graphics->DrawPixel(i, j, texelColor);
                 }
             }
@@ -85,12 +89,12 @@ void Sprite::Render(std::unique_ptr<Graphics>& graphics,
 }
 
 void Sprite::RenderOnMap(std::unique_ptr<Graphics>& graphics) {
-    for (int i = 0; i < NUM_SPRITES; ++i) {
-        graphics->DrawRect(sprites[i].x * MINIMAP_SCALE_FACTOR,
-                           sprites[i].y * MINIMAP_SCALE_FACTOR,
+    for (auto& sprite: sprites) {
+        graphics->DrawRect(sprite.x * MINIMAP_SCALE_FACTOR,
+                           sprite.y * MINIMAP_SCALE_FACTOR,
                            2,
                            2,
-                           (sprites[i].visible) ? 0xFF00FFFF : 0xFF444444
+                           (sprite.visible) ? 0xFF00FFFF : 0xFF444444
         );
     }
 }

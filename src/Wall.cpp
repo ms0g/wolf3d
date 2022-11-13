@@ -24,7 +24,7 @@ void Wall::Render(std::array<Ray, NUM_RAYS>& rays,
 
         // color of the ceiling
         for (int y = 0; y < wallTopY; ++y) {
-            graphics->DrawPixel(x, y, 0xFF333333);
+            graphics->DrawPixel(x, y, 0xFF200200);
         }
 
         // get the texture id from map content

@@ -13,6 +13,5 @@ public:
                 std::unique_ptr<Player>& player,
                 std::unique_ptr<Graphics>& graphics,
                 std::unique_ptr<Texture>& texture);
-
 };
 

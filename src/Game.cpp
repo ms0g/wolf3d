@@ -99,9 +99,9 @@ void Game::Setup() {
     player->height = 5;
     player->turnDirection = 0;
     player->walkDirection = 0;
-    player->walkSpeed = 300;
+    player->walkSpeed = 250;
     player->rotationAngle = std::numbers::pi / 2;
-    player->turnSpeed = 70 * (std::numbers::pi / 180);
+    player->turnSpeed = 50 * (std::numbers::pi / 180);
 
     // Create the color buffer
     graphics = std::make_unique<Graphics>(renderer);
@@ -136,7 +136,7 @@ void Game::Render() {
     graphics->Clear(0xFF000000);
 
     wall->Render(rays, player, graphics, texture);
-    sprite->Render(graphics, texture, player);
+    sprite->Render(graphics, texture, player, rays);
 
     // minimap rendering
     map->Render(graphics);

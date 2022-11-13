@@ -20,7 +20,8 @@ Texture::Texture() {
 color_t Texture::GetColor(int x, int y, int texNum) {
     auto tex = textures[texNum];
     auto width = upng_get_width(tex);
-    auto* buffer = reinterpret_cast<color_t*>(const_cast<unsigned char*>(upng_get_buffer(tex)));
+    auto* buffer = reinterpret_cast<color_t*>(
+            const_cast<unsigned char*>(upng_get_buffer(tex)));
 
     return buffer[(width * y) + x];
 }

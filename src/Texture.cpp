@@ -17,6 +17,12 @@ Texture::Texture() {
     }
 }
 
+Texture::~Texture() {
+    for (auto texture: textures) {
+        upng_free(texture);
+    }
+}
+
 color_t Texture::GetColor(int x, int y, int texNum) {
     auto tex = textures[texNum];
     auto width = upng_get_width(tex);
@@ -34,11 +40,6 @@ int Texture::GetHeight(int texNum) {
     return upng_get_height(textures[texNum]);
 }
 
-Texture::~Texture() {
-    for (auto texture: textures) {
-        upng_free(texture);
-    }
-}
 
 
 

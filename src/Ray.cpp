@@ -4,7 +4,6 @@
 #include "Map.h"
 #include "Utils.h"
 #include "Graphics.h"
-#include "Constants.hpp"
 
 void Ray::Cast(float angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map) {
     normalizeAngle(angle);
@@ -138,3 +137,19 @@ void Ray::Render(std::unique_ptr<Graphics>& graphics, std::unique_ptr<Player>& p
 }
 
 
+void renderRays(std::array<Ray, NUM_RAYS>& rays,
+                std::unique_ptr<Graphics>& graphics,
+                std::unique_ptr<Player>& player) {
+    for (int i = 0; i < NUM_RAYS; i += 50) {
+        rays[i].Render(graphics, player);
+    }
+}
+
+void castRays(std::array<Ray, NUM_RAYS>& rays,
+              std::unique_ptr<Map>& map,
+              std::unique_ptr<Player>& player) {
+    for (int i = 0; i < NUM_RAYS; i++) {
+        float rayAngle = player->rotationAngle + atan((i - NUM_RAYS / 2) / DIST_PROJ_PLANE);
+        rays[i].Cast(rayAngle, player, map);
+    }
+}

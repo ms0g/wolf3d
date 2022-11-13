@@ -107,13 +107,6 @@ void Game::Setup() {
     graphics = std::make_unique<Graphics>(renderer);
 }
 
-void Game::CastRays() {
-    for (int i = 0; i < NUM_RAYS; i++) {
-        float rayAngle = player->rotationAngle + atan((i - NUM_RAYS / 2) / DIST_PROJ_PLANE);
-        rays[i].Cast(rayAngle, player, map);
-    }
-}
-
 void Game::Update() {
     auto timeToWait = FRAME_TIME_LENGTH - (SDL_GetTicks() - ticksLastFrame);
     if (timeToWait > 0 && timeToWait <= FRAME_TIME_LENGTH)
@@ -123,13 +116,7 @@ void Game::Update() {
     ticksLastFrame = SDL_GetTicks();
 
     player->Move(deltaTime, map);
-    CastRays();
-}
-
-void Game::RenderRays() {
-    for (int i = 0; i < NUM_RAYS; i += 50) {
-        rays[i].Render(graphics, player);
-    }
+    castRays(rays, map, player);
 }
 
 void Game::Render() {
@@ -140,7 +127,7 @@ void Game::Render() {
 
     // minimap rendering
     map->Render(graphics);
-    RenderRays();
+    renderRays(rays, graphics, player);
     sprite->RenderOnMap(graphics);
     player->Render(graphics);
 

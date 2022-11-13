@@ -1,6 +1,5 @@
 #pragma once
 
-#include <numbers>
 #include <memory>
 #include <array>
 #include <SDL2/SDL.h>
@@ -33,10 +32,6 @@ private:
     void Render();
 
     void Setup();
-
-    void CastRays();
-
-    void RenderRays();
 
     SDL_Window* window{};
     SDL_Renderer* renderer{};

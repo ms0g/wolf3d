@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include <numbers>
+#include "Constants.hpp"
 
 class Map;
 class Player;
@@ -66,3 +66,11 @@ private:
     int m_texture;
 
 };
+
+void renderRays(std::array<Ray, NUM_RAYS>& rays,
+                std::unique_ptr<Graphics>& graphics,
+                std::unique_ptr<Player>& player);
+
+void castRays(std::array<Ray, NUM_RAYS>& rays,
+              std::unique_ptr<Map>& map,
+              std::unique_ptr<Player>& player);

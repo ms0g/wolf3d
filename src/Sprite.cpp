@@ -17,6 +17,7 @@ void Sprite::Render(std::unique_ptr<Graphics>& graphics,
     for (auto& sprite: sprites) {
         float angleSpritePlayer = player->rotationAngle - atan2(sprite.y - player->y, sprite.x - player->x);
 
+        // Make sure the angle is always between 0 and pi degrees
         if (angleSpritePlayer > std::numbers::pi) {
             angleSpritePlayer -= (2 * std::numbers::pi);
         }
@@ -43,6 +44,7 @@ void Sprite::Render(std::unique_ptr<Graphics>& graphics,
         return s1.distance > s2.distance;
     });
 
+    // Rendering all the visible sprites
     for (auto& vs: visibleSprites) {
         // Calculate the perpendicular distance to avoid fisheye effect
         float perpendicularDistance = vs.distance * cos(vs.angle);

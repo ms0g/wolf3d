@@ -10,7 +10,7 @@ public:
 
     void Render(std::unique_ptr<Graphics>& graphics) const;
 
-    [[nodiscard]] bool HasWallAt(double x, double y) const;
+    [[nodiscard]] bool HasWallAt(float x, float y) const;
 
     [[nodiscard]] int GetMapAt(int x, int y) const;
 

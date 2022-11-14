@@ -17,7 +17,7 @@ void Map::Render(std::unique_ptr<Graphics>& graphics) const {
     }
 }
 
-bool Map::HasWallAt(double x, double y) const {
+bool Map::HasWallAt(float x, float y) const {
     if (x < 0 || x > MAP_NUM_COLS * TILE_SIZE || y < 0 || y > MAP_NUM_ROWS * TILE_SIZE) {
         return true;
     }

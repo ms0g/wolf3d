@@ -16,3 +16,6 @@ cd build
 ```bash
 ./cube
 ```
+
+### Credits
+The project is based on [Raycasting Programming with C](https://pikuma.com/courses/raycasting-engine-tutorial-algorithm-javascript "Raycasting Engine") on [pikuma.com](https://pikuma.com)

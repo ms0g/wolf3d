@@ -1,5 +1,5 @@
 # cube
-Wolfenstein 3D style raycasting engine
+[Wolfenstein 3D (1992)](https://en.wikipedia.org/wiki/Wolfenstein_3D) style raycasting engine
 
 ![raycaster](assets/raycaster.gif)
 ### Prerequisites

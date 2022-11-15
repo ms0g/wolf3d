@@ -1,5 +1,5 @@
 # cube
-Wolfenstein 3D style raycasting engine
+[Wolfenstein 3D (1992)](https://en.wikipedia.org/wiki/Wolfenstein_3D) style raycasting engine
 
 ![raycaster](assets/raycaster.gif)
 ### Prerequisites
@@ -16,3 +16,6 @@ cd build
 ```bash
 ./cube
 ```
+
+### Credits
+The project is based on [Raycasting Programming with C](https://pikuma.com/courses/raycasting-engine-tutorial-algorithm-javascript "Raycasting Engine") on [pikuma.com](https://pikuma.com)

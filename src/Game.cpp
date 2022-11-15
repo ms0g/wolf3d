@@ -116,18 +116,18 @@ void Game::Update() {
     ticksLastFrame = SDL_GetTicks();
 
     player->Move(deltaTime, map);
-    castRays(rays, map, player);
+    castRays(rays, player, map);
 }
 
 void Game::Render() {
     graphics->Clear(0xFF000000);
 
     wall->Render(rays, player, graphics, texture);
-    sprite->Render(graphics, texture, player, rays);
+    sprite->Render(rays, player, graphics, texture);
 
     // minimap rendering
     map->Render(graphics);
-    renderRays(rays, graphics, player);
+    renderRays(rays, player, graphics);
     sprite->RenderOnMap(graphics);
     player->Render(graphics);
 

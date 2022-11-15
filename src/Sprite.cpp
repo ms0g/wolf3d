@@ -7,10 +7,10 @@
 #include "Ray.h"
 #include "Utils.h"
 
-void Sprite::Render(std::unique_ptr<Graphics>& graphics,
-                    std::unique_ptr<Texture>& texture,
+void Sprite::Render(std::array<Ray, NUM_RAYS>& rays,
                     std::unique_ptr<Player>& player,
-                    std::array<Ray, NUM_RAYS>& rays) {
+                    std::unique_ptr<Graphics>& graphics,
+                    std::unique_ptr<Texture>& texture) {
     std::array<sprite_t, NUM_SPRITES> visibleSprites{};
     int visibleSpriteCount = 0;
 

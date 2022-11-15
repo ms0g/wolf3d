@@ -12,10 +12,10 @@ class Sprite {
 public:
     Sprite() = default;
 
-    void Render(std::unique_ptr<Graphics>& graphics,
-                std::unique_ptr<Texture>& texture,
+    void Render(std::array<Ray, NUM_RAYS>& rays,
                 std::unique_ptr<Player>& player,
-                std::array<Ray, NUM_RAYS>& rays);
+                std::unique_ptr<Graphics>& graphics,
+                std::unique_ptr<Texture>& texture);
 
     void RenderOnMap(std::unique_ptr<Graphics>& graphics);
 

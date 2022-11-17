@@ -53,9 +53,9 @@ private:
     }
 
 public:
-    void Cast(float angle, std::unique_ptr<Player>& player, std::unique_ptr<Map>& map);
+    void Cast(float angle, const std::unique_ptr<Player>& player, const std::unique_ptr<Map>& map);
 
-    void Render(std::unique_ptr<Player>& player, std::unique_ptr<Graphics>& graphics) const;
+    void Render(const std::unique_ptr<Player>& player, const std::unique_ptr<Graphics>& graphics) const;
 
 private:
     float m_angle;
@@ -68,9 +68,9 @@ private:
 };
 
 void renderRays(std::array<Ray, NUM_RAYS>& rays,
-                std::unique_ptr<Player>& player,
-                std::unique_ptr<Graphics>& graphics);
+                const std::unique_ptr<Player>& player,
+                const std::unique_ptr<Graphics>& graphics);
 
 void castRays(std::array<Ray, NUM_RAYS>& rays,
-              std::unique_ptr<Player>& player,
-              std::unique_ptr<Map>& map);
+              const std::unique_ptr<Player>& player,
+              const std::unique_ptr<Map>& map);

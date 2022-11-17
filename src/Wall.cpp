@@ -6,9 +6,9 @@
 #include "Utils.h"
 
 void Wall::Render(std::array<Ray, NUM_RAYS>& rays,
-                  std::unique_ptr<Player>& player,
-                  std::unique_ptr<Graphics>& graphics,
-                  std::unique_ptr<Texture>& texture) {
+                  const std::unique_ptr<Player>& player,
+                  const std::unique_ptr<Graphics>& graphics,
+                  const std::unique_ptr<Texture>& texture) {
     for (int x = 0; x < NUM_RAYS; ++x) {
         // Calculate the perpendicular distance to avoid fish-eye distortion
         float perpendicularDistance = rays[x].Distance() * cos(rays[x].Angle() - player->rotationAngle);

@@ -5,7 +5,7 @@
 #include "Utils.h"
 #include "Constants.hpp"
 
-void Player::Render(std::unique_ptr<Graphics>& graphics) const {
+void Player::Render(const std::unique_ptr<Graphics>& graphics) const {
     int xcoord = static_cast<int>(x * MINIMAP_SCALE_FACTOR);
     int ycoord = static_cast<int>(y * MINIMAP_SCALE_FACTOR);
     int w = static_cast<int>(width * MINIMAP_SCALE_FACTOR);
@@ -14,7 +14,7 @@ void Player::Render(std::unique_ptr<Graphics>& graphics) const {
     graphics->DrawRect(xcoord, ycoord, w, h, 0xFFFFFFFF);
 }
 
-void Player::Move(float deltaTime, std::unique_ptr<Map>& map) {
+void Player::Move(float deltaTime, const std::unique_ptr<Map>& map) {
     rotationAngle += turnDirection * turnSpeed * deltaTime;
 
     normalizeAngle(rotationAngle);

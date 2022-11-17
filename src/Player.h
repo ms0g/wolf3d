@@ -8,9 +8,9 @@ class Player {
 public:
     Player() = default;
 
-    void Render(std::unique_ptr<Graphics>& graphics) const;
+    void Render(const std::unique_ptr<Graphics>& graphics) const;
 
-    void Move(float deltaTime, std::unique_ptr<Map>& map);
+    void Move(float deltaTime, const std::unique_ptr<Map>& map);
 
     float x;
     float y;

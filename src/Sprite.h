@@ -13,11 +13,11 @@ public:
     Sprite() = default;
 
     void Render(std::array<Ray, NUM_RAYS>& rays,
-                std::unique_ptr<Player>& player,
-                std::unique_ptr<Graphics>& graphics,
-                std::unique_ptr<Texture>& texture);
+                const std::unique_ptr<Player>& player,
+                const std::unique_ptr<Graphics>& graphics,
+                const std::unique_ptr<Texture>& texture);
 
-    void RenderOnMap(std::unique_ptr<Graphics>& graphics);
+    void RenderOnMap(const std::unique_ptr<Graphics>& graphics);
 
 private:
     typedef struct sprite_t {

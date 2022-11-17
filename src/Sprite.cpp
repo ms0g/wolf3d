@@ -8,9 +8,9 @@
 #include "Utils.h"
 
 void Sprite::Render(std::array<Ray, NUM_RAYS>& rays,
-                    std::unique_ptr<Player>& player,
-                    std::unique_ptr<Graphics>& graphics,
-                    std::unique_ptr<Texture>& texture) {
+                    const std::unique_ptr<Player>& player,
+                    const std::unique_ptr<Graphics>& graphics,
+                    const std::unique_ptr<Texture>& texture) {
     std::array<sprite_t, NUM_SPRITES> visibleSprites{};
     int visibleSpriteCount = 0;
 
@@ -90,7 +90,7 @@ void Sprite::Render(std::array<Ray, NUM_RAYS>& rays,
     }
 }
 
-void Sprite::RenderOnMap(std::unique_ptr<Graphics>& graphics) {
+void Sprite::RenderOnMap(const std::unique_ptr<Graphics>& graphics) {
     for (auto& sprite: sprites) {
         graphics->DrawRect(sprite.x * MINIMAP_SCALE_FACTOR,
                            sprite.y * MINIMAP_SCALE_FACTOR,

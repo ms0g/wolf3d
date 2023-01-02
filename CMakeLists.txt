@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.23)
-project(cube CXX C)
+project(wolf3d CXX C)
 
 set(CMAKE_CXX_STANDARD 20)
 

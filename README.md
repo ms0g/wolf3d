@@ -14,7 +14,7 @@ cd build
 
 ### Run
 ```bash
-./cube
+./wolf3d
 ```
 
 ### Credits

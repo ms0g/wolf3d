@@ -1,4 +1,4 @@
-# cube
+# wolf3d
 [Wolfenstein 3D (1992)](https://en.wikipedia.org/wiki/Wolfenstein_3D) style raycasting engine
 
 ![raycaster](assets/raycaster.gif)

@@ -8,7 +8,7 @@ include_directories(${SDL2_INCLUDE_DIRS})
 
 file(GLOB_RECURSE SRC "src/*")
 
-SET(DEPS upng/upng.c upng/upng.h)
+SET(DEPS libs/upng/upng.c libs/upng/upng.h)
 
 add_executable(${PROJECT_NAME} ${SRC} ${DEPS})
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})

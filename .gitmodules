@@ -1,3 +1,3 @@
-[submodule "upng"]
-	path = upng
+[submodule "libs/upng"]
+	path = libs/upng
 	url = https://github.com/0msg/upng
